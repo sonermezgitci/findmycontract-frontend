@@ -20,10 +20,6 @@ we want to be compose
 
 let store = createStore(reducer, composeEnchancers(applyMiddleware(thunk)))
 
-reducer: An Action dispatching to  our  reducer  which means sending an action object to our reducer and our reducer
-is responsible for taking in that action object and decides based on the way you set up reducer it'll have those condition 
-in there decides what we want update about our current store reducer will return a new version of that store 
-
 
 we must call store in provider what ever we call in our variable let store ={store}
 
@@ -35,4 +31,73 @@ ReactDOM.render(
   
   document.getElementById('root')
 );
+
+Container Components: parent component Usually they are class Components usually what they do they render other components 
+they kind of whhat you want to contain a bunch of other components that they contain be other containers  or presentaional components
+when you see containers components they are just components 
+player container job probably would be get data from our store and render other components we will have to do with the players
+and also handle some of the pass down data to those child components and handle some of the data whether do did it now or functions 
+and contractcontainer can also do the smiliar thing maybe not render all the contract but render some od the top level 
+component and other contract components will render more more children 
+
+container components is that handle some of components  some of passing quick functions and sending things up to store 
+
+
+REDUCER (playerReducer.js): An Action dispatching to  our  reducer  which means sending an action object to our reducer and our reducer
+is responsible for taking in that action object and decides based on the way you set up reducer it'll have those condition 
+in there decides what we want update about our current store reducer will return a new version of that store
+each time we update something in our store this is the reducer thats going to be returning that new updated state 
+the reason why we have to pass reducer in the create store as argument we are saying 
+this is the our store anytime something is dispatched anytime we see dispatch we want that action object to be an action object to be
+send to this reducer which will update this store(value of the store)
+
+example reducer 
+let store = createStore(playerReducer, composeEnchancers(applyMiddleware(thunk)))
+
+dispatch(actionObject)
+
+
+export default function playerReducer(state = {players: []}, action ) {
+
+return state 
+
+
+
+}
+
+
+ACTION Creater(fetchPlayer.js) = this is a function like reducer this is where we are fetching our players
+what we return from this function or dispatch is an action object  or just an action 
+example 
+dispatch(actionObject)
+the diffrence is an action creaters creates and object then that action object will dispatch to our reducer(playerReducer.js)
+Which will return our new version of our state based on the action that we sent
+
+before we create our action creater and send to data to reducer we needs in order to have access to our reducer to update our store 
+in index.js we wrapped our app in a  provider to gives any components(or child or shcild of child components) access to our store
+
+we need another piece that specific component can have access to  store. So we need to import connect 
+App.js
+import {connect} from 'react-redux'
+....
+
+
+                                                        ** mapStateToProps **
+mapStateToPops = {state} => {    
+    return {                                ** I want to access to this particular part of the store **
+        players: state.players    <--------- mapStateToProps is our way of accessing our stores values in our store as props                                 
+                                            then give us access to something if we set this up we could then inside of our app
+                                            component call this.props.players we have to  set up in mapStateProps as following
+                                            to give us access to see what is already in our store
+                                           
+    }  
+}
+
+
+
+export default connect(mapStateToPops,{fetchPlayers})(App);
+if we dont pass (mapStateToPops) Here nothings gonan happen. This is saying We passed this function the return value of This
+is coming from our store 
+
+
 

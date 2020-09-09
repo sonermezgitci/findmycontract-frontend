@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {connect} from 'react-redux'
 
 class App extends React.Component {
  
@@ -13,7 +13,6 @@ class App extends React.Component {
  }
 
 
-
   render() {
     return (
       <div className="App">
@@ -23,4 +22,10 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+return {
+  players: state.players
+}
+}
+
+export default connect(mapStateToPops,{fetchPlayers})(App);
