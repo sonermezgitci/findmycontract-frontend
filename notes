@@ -1,0 +1,38 @@
+Provider: any component that we wrap in provider will have access to our redux Store 
+applyMiddleware(thunk) : thunk is Middleware that we are using we have to incorparate with Devtools authomatically SET UP
+so we dont have our application connected to the Devtools 
+
+What we need to incorparate so that we can pass more than one middle ware as the second argument here?
+so we pass compose here which comes from redux 
+
+import {createStore, applyMiddleware, compose} from 'redux'
+
+so what is compose do ?
+compose combines a couple diffrent Middleware into one so we can just pass one argument here what thought this is 
+create store looking for. when we typically use compose we typically set up a Const alot of times called enchancer 
+we are enchancing our store as a function they are built in they come with redux so create store we are passing arguments by
+Middleware we are passing arguments so we want use composed smiliar way.
+
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+if window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ exist it going to be that if it doesnt excist 
+we want to be compose
+
+let store = createStore(reducer, composeEnchancers(applyMiddleware(thunk)))
+
+reducer: An Action dispatching to  our  reducer  which means sending an action object to our reducer and our reducer
+is responsible for taking in that action object and decides based on the way you set up reducer it'll have those condition 
+in there decides what we want update about our current store reducer will return a new version of that store 
+
+
+we must call store in provider what ever we call in our variable let store ={store}
+
+
+ReactDOM.render(
+  <Provider store={store}>
+   <App />
+  </Provider>,
+  
+  document.getElementById('root')
+);
+
