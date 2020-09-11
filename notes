@@ -51,6 +51,13 @@ the reason why we have to pass reducer in the create store as argument we are sa
 this is the our store anytime something is dispatched anytime we see dispatch we want that action object to be an action object to be
 send to this reducer which will update this store(value of the store)
 
+why we are using thunk in first place 
+its returns a function from action creater (fetchPlayer.js)
+what is the benefit for us? 
+we can use it other places easily.
+
+
+
 example reducer 
 let store = createStore(playerReducer, composeEnchancers(applyMiddleware(thunk)))
 
@@ -95,9 +102,66 @@ mapStateToPops = {state} => {
 
 
 
-export default connect(mapStateToPops,{fetchPlayers})(App);
+export default connect(null,{fetchPlayers})(App);
+ this connect actually calling dispatch({}) for us  on the return value of fetch accounts for us. 
 if we dont pass (mapStateToPops) Here nothings gonan happen. This is saying We passed this function the return value of This
-is coming from our store 
+is coming from our store, you can pass mapDispatch props or action creater as a second argument gives us ability to update 
+our store directly from this component. so this is the formula access to this.props.fetchplayers through props to something pulled into 
+ function fetchPlayers which will then update our store.  (mapStateToProps) is give us  access to what is the currently in the store 
+ action (fetchPlayers) or (mapStateToPops) as a second argument gives us to ability to dispatch new action or update to our store
+ directly from our component. 
 
 
+
+App.js 
+
+import React from 'react';
+import {connect} from 'react-redux'
+import {fetchPlayers}from './actions/fetchPlayers'
+class App extends React.Component {
+ 
+  componentDidMount (){  **Our App component mounted **
+   this.props.fetchPlayers({type:'FETCH_PLAYERS', payload: {name:'Checking' }})
+   What is happening and knew that this return action should send to reducer 
+
+  
+   **this.props.fetchPlayers called  we passed in this action object -> ({type:'FETCH_PLAYERS', payload: {name:'Checking' }}
+    then this action return this action object  how we end up hitting this debugger in our reducer ?
+  What is happening and knew that this    | return action should send to the reducer(playerReducer.js) we never invoked Our                                        
+   FetchPlayer.js                         | playerReducer function what did that for us?   
+                                          | reducer acception action in index.js file const store = createStore(playerReducer, composeEnchancers(applyMiddleware(thunk)))
+    export function fetchPlayers(action){ | telling that thats | is the rediucer is teh playerReducer but really happening                   
+    return action    <--------------------|-> when its return  | that it went into  the playerReducer. What we earned that function                    
+ 
+ that sends an action  object to  reducer. the reason its      |  expecting add once that something returned from there.                       |
+ then its then fire our connect                                |
+ export default connect(null,{fetchPlayers})(App);             |
+dispatch to our store store.dispatch({type: 'FETCH_PLAYERS',   |   payload: {name: 'Checking'}})                                                              |
+then this is therefore sent into our reducer(playerReducer.js) | as a action! you dont see dispatch because its automatically happen
+playerReducer.js                                               v
+export default function playerReducer(state = {players: []}, action ) {
+
+                                                    the reason we need THUNK is when we mant to make a synchronous request 
+                                                    Which is fetch request in fetch player.js            
+                                                          
+}
+ }
+
+
+  render() {
+    return (
+      <div className="App">
+        App
+      </div>
+    );
+  }
+}
+
+// const mapStateToProps = (state) => {
+// return {
+//   players: state.players
+// }
+// }
+
+export default connect(null,{fetchPlayers})(App);
 
