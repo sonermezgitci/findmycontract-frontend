@@ -92,8 +92,9 @@ our action so we can call dispatch once we've gotten that in thunk allows us to 
 without thunk we can not use dispatch inside an action creator. What are we need to set up in here that we can use this patch in dispatch 
 instead of logging it? We have to return dispatch 
                                               |
+Chapter-1                                     |
                                               |
-export function fetchPlayers() {              |
+ export function fetchPlayers() {             |
   return (dispatch) => {<---------------------|------>  instead of connect automatically dispatching an action with thunk 
                                                           we are allowed to pass have function which is all function here 
  fetch ('http://localhost:3000/players')                  we are passing in dispatch built in dispatch function as an argument 
@@ -106,15 +107,53 @@ export function fetchPlayers() {              |
 .then(response => response.json()) <--------- we will get some response eventually once promise resolved 
                                               response from our request comes into this first .then we converts
                                               that response into JSON when the response converted the json 
-  .then(players   => dispatch({    <----------  response camedown in as the argument in second .then 
-                                                We can call this what ever we want they are just arguments in function 
-                                                players is the same as this converted response into JSON WE then dispatching 
-                                                Which is saying going to our reducer 
-    type: 'FETCH_ACCOUNTS',<--------------------take our reducer this action object just an object take that and update our Redux store based
-                                                 on the information that i am sending you here. 
-    payload: players                                            
+  .then(players   => dispatch({    <----------response camedown in as the argument in second .then 
+                                              We can call this what ever we want they are just arguments in function 
+                                              players is the same as this converted response into JSON WE then dispatching 
+                                              Which is saying going to our reducer 
+ |--->type: 'FETCH_ACCOUNTS',<------------------take our reducer this action object just an object take that and update our Redux store based
+ |                                            on the information that  sending you here. so this is dispatching to our reducer
+ |                                           with a type: 'FETCH_ACCOUNTS' and payload: players
+ |
+ |   payload: players                                            
+ |
+ |   }
+ |
+ | }
+ |
+ |   chapter 2/  playerReducer.js
+ |
+ |     so what we have to do with our reducer all its doing returning this initial state, i want my reducer  yo be everytime we dispatch
+ |     an action i wanted to update the state based on that action so what we need to do and you know we need set up switch statement 
+ |
+ |   export default function playerReducer(state = {players: []}, action ) { <--------------------------|                        
+ |   debugger;                                                                                          |
+ |     switch (action.type){                                                                            |
+ |------>case 'FETCH_PLAYERS':--->first case we are checkin our switch to type:'FETCH_ACCOUNTS(line 113)|of this action whole thing coming to our reducer
+      return state ---------------> if this the action type fetch players we want to return state       |          
+     default:                   before we fethcing anything at first our state is just initially this object with keys players: [] poiting to empty array  
+                                the goal is after that fetch request and after we com einto this players|state that looks that its an object 
+                                based on switch and action that is coming in from empty object  how do I|achieve them with the players 
+                                pointing to an array of players                                         |     
+         return state                                                                                   |
+    }                                                                                                   |    
+                                                                                                        |
+}                                                                                                       |
+                                                                                                        |
+                                                                                                        |
+chapter 3/ playerReducer.js                                                                             |
+                                                                                                        |
+export default function playerReducer(state = {players: []}, action ) {                                 |
+debugger;                                                                                               |
+    switch (action.type){                                                                               |
+     case 'FETCH_PLAYERS':                                                                              |
+     return {players: action.payload}<-We want to return an object which the key players points to an array. we are saying  
+     default:                           return an object remember what ever we returned from our reducer is our new our REDUX STATE
+         return state                   this will be our state that we access in any other component that we access its returning 
+                                        a new version  of state so what we're saying right now is no longer want players point to 
+                                        an empty array i wanted to point to the array that cameback from my fetch request 
+    }
 
-   }
 }
 
 
@@ -266,19 +305,20 @@ class PlayerContainer extends React.Component{
       <div> 
       
         <PlayerInput/>
-        <Players/>
-      
-      </div>
-
-      )
-    }
-
-}
-                                                            ****NOT***
- const mapStateToProps = state => { <----------  {fetchPlayers} equivalent to mapDispatchtoProps 
-     return{                                  |
-         players: state.players               |
-     }                                        |
+        <Players players={this.props.players}/> <----| we need to send  players to our players. We are sending and accessing players 
+                                                     |   with  {this.props.players}
+                                                     |
+      </div>                                         |
+                                                     |
+      )                                              |
+    }                                                |
+                                                     |-------------------------------------------------------------------| 
+}                                                                                                                        |
+                                                            ****NOT***                                                   |    
+ const mapStateToProps = state => { <----------  {fetchPlayers} equivalent to mapDispatchtoProps                         |
+     return{                                  |   getting players for our REDUX STORE accessing them                     |
+         players: state.players <-------------|-->through props inside this component then sending those players to our players component
+     }                                        |    remember we set up our players.js component to receive props 
  }                                            |
                                               |
                                               |
@@ -293,6 +333,9 @@ PlayerInput.js Component
  playerInput component to create. In order to have controlled form you need control those values in you can have a local state 
  that controls that values, its makes simpler but you also could everytime there was a change to the form you could send that to your 
  Redux Store . its makes more sense of it as a class component that local state holding to form values
+ 
+ 
+ 
  import React from 'react'
 
 class PlayerInput extends React.Component {
@@ -352,7 +395,7 @@ We can also use destructive to pass in with the actual name ->  const Players = 
 
 import React from 'react'
 
- const Players = (props) => {
+ const Players = (props) => { remember we set up our players component to receive props 
 
 
 ****we can accees anything we pass it thorugh props we dont need render inside the functional component we just need return 
@@ -375,3 +418,24 @@ return (
  aside from these two other containers 
 
 
+Phase 2 players.js 
+
+import React from 'react'
+
+ const Players = (props) => {
+ console.log(props)
+  return (
+   <div>                             
+                                     evertime you iterate its gonna want you put a key into the html element holding that iteration
+    {props.players.map(player=> <li> key={player.id} {player.name} - {player.height}-{player.weight}-{player.position}-{player.points}</li>)}
+                   we have to iterate over each player  and have a list to have return here  
+                   we are creating a list with<li> list of our players on this element tags we need JSX because this is coming as 
+                   JavaScript since we are inside of html element we have to access the values of these props that we are passing in 
+   </div>                
+
+
+  )
+
+ }
+
+ export default Players

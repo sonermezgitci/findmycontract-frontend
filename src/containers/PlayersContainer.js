@@ -8,7 +8,7 @@ import PlayerInput from '../components/PlayerInput'
 class PlayerContainer extends React.Component{
   
     componentDidMount(){
-//   this.props.fetchPlayers()
+  this.props.fetchPlayers()
 
 
     }
@@ -18,7 +18,7 @@ class PlayerContainer extends React.Component{
       <div> 
       
         <PlayerInput/>
-        <Players/>
+        <Players players={this.props.players}/>
       
       </div>
 
