@@ -1,14 +1,13 @@
 export function fetchPlayers(action){
- 
-    return action
+console.log('inside fetch players')
 
-//       fetch ('http://localhost:3000/players',{
+ fetch ('http://localhost:3000/players')
     
-//   })
-//   .then(response => response.json())
-//   .then(data => console.log(data))
-
-
-
+  .then(response => response.json())
+  .then(players => dispatch({
+    type: 'FETCH_PLAYERS',
+    payload: players
+  
+}))
 
 }

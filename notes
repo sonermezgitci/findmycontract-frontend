@@ -1,3 +1,7 @@
+This  Is How To See How This App Works In  A Synchronous Way! part 1
+
+
+
 Provider: any component that we wrap in provider will have access to our redux Store 
 applyMiddleware(thunk) : thunk is Middleware that we are using we have to incorparate with Devtools authomatically SET UP
 so we dont have our application connected to the Devtools 
@@ -78,7 +82,41 @@ what we return from this function or dispatch is an action object  or just an ac
 example 
 dispatch(actionObject)
 the diffrence is an action creaters creates and object then that action object will dispatch to our reducer(playerReducer.js)
-Which will return our new version of our state based on the action that we sent
+Which will return our new version of our state based on the action that we sent.
+
+Action creator typically before you incorparate a fetch request or any sort of async request return  just regular JabaScript objects that
+that have a {type: 'aaaa', payload} when the action creator return something like this our fetchPlayer automatically dispatches whatever 
+what ever that action to our reducer for us. Since this fetch request takes sometime we cant return action rightaway and 
+we dont want our connect function to automatically call dispatch for us in (fetchPlayers.js) instead we want to use this fetch inside
+our action so we can call dispatch once we've gotten that in thunk allows us to use dispatch inside of here (fetchPlayer.js) 
+without thunk we can not use dispatch inside an action creator. What are we need to set up in here that we can use this patch in dispatch 
+instead of logging it? We have to return dispatch 
+                                              |
+                                              |
+export function fetchPlayers() {              |
+  return (dispatch) => {<---------------------|------>  instead of connect automatically dispatching an action with thunk 
+                                                          we are allowed to pass have function which is all function here 
+ fetch ('http://localhost:3000/players')                  we are passing in dispatch built in dispatch function as an argument 
+  .then(response => response.json())                      so that we can use it inside of our action creator and dispatch 
+  .then(players => dispatch ({                            the response from our fetch
+   type: 'FETCH_ACCOUNTS',
+   payload: players
+  }))                     
+
+.then(response => response.json()) <--------- we will get some response eventually once promise resolved 
+                                              response from our request comes into this first .then we converts
+                                              that response into JSON when the response converted the json 
+  .then(players   => dispatch({    <----------  response camedown in as the argument in second .then 
+                                                We can call this what ever we want they are just arguments in function 
+                                                players is the same as this converted response into JSON WE then dispatching 
+                                                Which is saying going to our reducer 
+    type: 'FETCH_ACCOUNTS',<--------------------take our reducer this action object just an object take that and update our Redux store based
+                                                 on the information that i am sending you here. 
+    payload: players                                            
+
+   }
+}
+
 
 before we create our action creater and send to data to reducer we needs in order to have access to our reducer to update our store 
 in index.js we wrapped our app in a  provider to gives any components(or child or shcild of child components) access to our store
@@ -164,4 +202,176 @@ export default function playerReducer(state = {players: []}, action ) {
 // }
 
 export default connect(null,{fetchPlayers})(App);
+-----------------------------------------------------------------------------------------------------------------------------------
+
+Part 2
+
+Containers/PlayerContainers.js
+
+someone to be able to creat players and then a view list of players and maybe edit players and contract 
+// something that we wnt to contained with this players.
+
+container what it should really do is render othee conponents pass them data if they require data and they also can have 
+other functions inside of them callback functions or anything like that component did hope to get there unders that helps 
+its more to pass it to appropriate that will render it an will handle changes thorugh a form and so on..
+
+they typcially are a class component a lot of times they may need state is that component did about function to be which we get with
+a class component. Container components are one of our top-level container components going to wonder what to render inside to our 
+app component. We will render these coponents that we have (Players.js - PlayerInput.js)
+Remember Capitalization does matter. Components you have to capitalized  and matching the name of the component when you have action or
+reducer they are typically camel case we want to render both components inside the playerContainer so first thing you need to do 
+imported connect.                   |
+                                                                 |
+import React from 'react';                                       |
+                                                                 |
+import Players from '../components/Players'   <------------------|
+import PlayerInput from '../components/PlayerInput' <----------- |
+
+class PlayerContainer extends React.Component{-> which is accessing this components from react library 
+    
+}
+
+export default connect()(PlayersContainer) hen we want to use connect
+
+we render Player container in our app.js. We remember this an application that is using redux if we want to fetch our players 
+from our backend to add them in our redux store to use those players from our backend how will we use what will want to our 
+players container how we gonna get  those player and how will we pass them to this players component?
+
+Answer ; we need to import connect 
+
+App.js 
+import React from 'react';
+
+import {connect} from 'react-redux'
+*import PlayerContainer from './containers/PlayersContainer'*** we must import Player components we still our app 
+                                                                 render in the Dom at index.js ****
+
+import React from 'react';
+import Players from '../components/Players'
+import {connect} from 'react-redux'
+import {fetchPlayers} from '../actions/fetchPlayers'
+import PlayerInput from '../components/PlayerInput'
+
+
+class PlayerContainer extends React.Component{
+  
+    componentDidMount(){
+//   this.props.fetchPlayers()
+
+
+    }
+
+    render () {
+      return (
+      <div> 
+      
+        <PlayerInput/>
+        <Players/>
+      
+      </div>
+
+      )
+    }
+
+}
+                                                            ****NOT***
+ const mapStateToProps = state => { <----------  {fetchPlayers} equivalent to mapDispatchtoProps 
+     return{                                  |
+         players: state.players               |
+     }                                        |
+ }                                            |
+                                              |
+                                              |
+export default connect(mapStateToProps, {fetchPlayers})(PlayerContainer)
+                            
+
+COMPONENTS 
+
+
+PlayerInput.js Component
+ We want to create a new form to create a new Player also our index.js shows all our Players that why we need
+ playerInput component to create. In order to have controlled form you need control those values in you can have a local state 
+ that controls that values, its makes simpler but you also could everytime there was a change to the form you could send that to your 
+ Redux Store . its makes more sense of it as a class component that local state holding to form values
+ import React from 'react'
+
+class PlayerInput extends React.Component {
+
+    render() {
+     return (
+       <div>
+    
+        PlayerInput 
+
+
+       </div>
+
+
+
+     )
+
+    }
+
+
+}
+
+export default PlayerInput
+
+
+
+
+
+
+
+
+
+
+
+
+ PlayerList.js Component 
+
+ we would we want for a lid that would become a list of all of our players 
+
+
+
+
+   Functional Component / Players.js 
+
+you could have choose to have this as a class component as far as the requirements are concerned you need five 
+functional components so this could be a good one to use if you had five others without having something like this as a 
+function component then that works to but this is absolutely works. We have to set up functional components like regular 
+function personally i liek arrow function. This component will be responsible for rendering a list of players this is what wee need
+and how this is component going to get those players. With calss component we just call this.props, with the functional component 
+We have to pass props as an argument->  const Players = (props) => { 
+We can also use destructive to pass in with the actual name ->  const Players = ({players}) => {
+
+
+
+
+
+
+import React from 'react'
+
+ const Players = (props) => {
+
+
+****we can accees anything we pass it thorugh props we dont need render inside the functional component we just need return 
+functional components they are just  functions ****
+return (
+   <div> 
+ 
+    Players 
+ 
+   </div>
+
+
+  )
+
+ }
+
+ export default Players
+
+ summary: We are attaching app to DOM which is rendering our players container which is not rendering anything itself
+ aside from these two other containers 
+
 

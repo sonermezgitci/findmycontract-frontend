@@ -1,17 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import {fetchPlayers}from './actions/fetchPlayers'
+import PlayerContainer from './containers/PlayersContainer'
 class App extends React.Component {
  
-  componentDidMount (){
-   this.props.fetchPlayers({type:'FETCH_PLAYERS', payload: {name:'Checking' }})
- }
-
+ 
 
   render() {
     return (
       <div className="App">
-        App
+        <PlayerContainer/>
       </div>
     );
   }
@@ -19,4 +16,4 @@ class App extends React.Component {
 
 
 
-export default connect(null,{fetchPlayers})(App);
+export default connect()(App);
