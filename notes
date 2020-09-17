@@ -332,21 +332,79 @@ PlayerInput.js Component
  We want to create a new form to create a new Player also our index.js shows all our Players that why we need
  playerInput component to create. In order to have controlled form you need control those values in you can have a local state 
  that controls that values, its makes simpler but you also could everytime there was a change to the form you could send that to your 
- Redux Store . its makes more sense of it as a class component that local state holding to form values
- 
- 
- 
- import React from 'react'
+ Redux Store . its makes more sense of it as a class component that local state holding to form values. we are setting up form.
+ this is what we need to create a player. 
+
+import React from 'react'
 
 class PlayerInput extends React.Component {
 
-    render() {
-     return (
+   state = {name:'',     <---------> you can set up constructor or you can set state like this 
+    nationality:'', 
+    bio:'',           <---------> this is what keys state neeeds
+ position:'' }   
+              with (event) method has know what its changing 
+ handleChange = (event) => {  <------------->    without onChange method in the form nothing will change (not work)
+    this.setState({                              <--------------------> this is how we update the state 
+        [event.target.name]: event.target.value  <--------------------->this is how we update the state 
+    })    |________________________________________________|--> since we are inside the object [event.target.name](with the bracket) is going to                                    
+ } try and give our state a key of event.target.name what is [] doing first evaluating this what is in here evaluating that 
+ be either name of balance [] first reads value associated with this and then sets it as a key ->  [event.target.name]:
+
+                                                
+                                                 //  name="name"onChange={this.handleChange} 
+                                                 //name need to be match with key name in the state 
+                                                 //we are going to be abstracting out this name value for both of these inputs 
+                                                  // we want to name that we assign match our state the keys that we have in our state
+ 
+ 
+ 
+ handleSubmit = (event) => {
+    event.preventDefault()<------------------- we are saying hold on  we actually  dont want you to submit form as you nromally do
+    this.props.addPlayer(this.state)           where the name, nationality, bio, position is saved in this componnet 
+                                               answer state  we just want to send state  to addPlayer.js file 
+                                               which is user wrote in state in above(line10/14) we are saving that information 
+                                               in our state every single time someone is changing with handleChange (line16)
+                                               someone changes makes a change either input we are updating that state when 
+                                               they finally hit the submit button that state holds everything that user
+                                               entered into the inputs so we want to send our state to addPlayer through this.props.addPlayer(this.state) 
+                                               when we submit to form it goes to our database and saved then  its  updating to our Redux Store 
+                                               so we are going to need to create action creator thats gonna send that data to our database. 
+                                               Now we have fetchPlayers Action (fetchPlayers.js)  this is dealing with fetching all of our players from the backend   
+                                               so we have to create anotehr one to deal with creating a new player 
+                                               our data successfully passed in to our addPlayer
+ }
+                                                
+   
+   
+   
+   
+   
+   
+   
+  
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ render() {                                               
+     return (                                               
        <div>
-    
-        PlayerInput 
-
-
+     <label> Creating Player Name: </label>
+     <form onSubmit={this.handleSubmit}> <------------> we are putting submit here to because we want this whole forms to submit
+        <input text='text' placeholder='name' value={this.state.name} name="name"onChange={this.handleChange}/><br/><br/>
+        <label> Creating nationality: </label>
+        <input text='text' placeholder='nationality' value={this.state.nationality} name="balance" onChange={this.handleChange}/><br/><br/>
+        <label> Creating Player bio: </label>
+        <input text='text' placeholder='bio' value={this.state.bio} name="bio" onChange={this.handleChange}/><br/><br/>
+        <label> Creating position: </label>
+        <input text='text' placeholder='position' value={this.state.position} name="position" onChange={this.handleChange}/>
        </div>
 
 
@@ -358,7 +416,51 @@ class PlayerInput extends React.Component {
 
 }
 
-export default PlayerInput
+export default PlayerInput 
+
+
+addPlayer.js                                all we doing here this function is just it is written in a separate file but 
+                                          we are importing it using it as a regular function we just passing data as argument  
+            
+export const addPlayer = (data) => {<---------initially setting up this data        
+  return( dispatch) => {    |_________________|->DATA  where is that coming from ?  what is that data when we submit 
+           
+  }                                    
+                                                          this form what data we are going to send to this addPlayer creator?  
+                                                          ANSWER : his.setState on handle change everytime we change something there in 
+                                                          our handle change we are updating our state(PlayerInput.js) 
+                                                             handleChange = (event) => {             
+                                                                         this.setState({
+                                                                          [event.target.name]: event.target.value
+}                                                          when we ultimately submit this form since its a controlled form our state is 
+                                                           what we're gonna be sending as the argument to this add account 
+                                                           DATA IS COMING FROM  state from (playerInput.js) 
+                                                              state = {
+                                                                  name:'',                  
+                                                                  nationality:'', 
+                                                                  bio:'',                           
+                                                                  position:'' }   
+ 
+
+                                                            why we need to send dispatch to return dispatch ?\
+                                               we can import it into the input file and connect it to the action connected to the form
+                                              because playerInput will be connected to our redux store. because ADDplayer component
+                                              is going to be calling a function or addPlayer function that will be dispatching 
+                                              something to the reducer what redux feature are we using that lets us bring  a dispatch into this action creator
+                                              
+                                              ANSWER thunk because of thunk we can bring dispatch the dispatch function into this 
+                                              this addPlayer and dispatch call dispatch inside of here rather then having our connect 
+                                               set up for us
+
+                                              What is the reason to returning dispatch here ?
+                                              answer: We have access we're returning a function in here and that 
+                                              function is taking the dispatch function as an argument so that gives us access 
+                                              to the dispatch function. Ther reason we are able to the do that because of thunk(Middleware)
+                                              thunk is allowing us to pass in dispatch to this function that we have inside of 
+                                              action creator.
+                                              Okay we are passing data how are we gonna take this data to our API ?
+                                              How we create a new Player ?
+
 
 
 

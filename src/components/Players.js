@@ -5,7 +5,7 @@ import React from 'react'
   return (
    <div> 
  
-    {props.players.map(player=> <li  key={player.id}> {player.name} - {player.height}-{player.weight}-{player.position}-{player.points}</li>)}
+    {props.players.map(player=> <li  key={player.id}> {player.name} - {player.height}-{player.weight}-{player.position}-{player.points}-</li>)}
  
    </div>
 
