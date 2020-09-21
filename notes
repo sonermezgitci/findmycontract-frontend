@@ -166,6 +166,34 @@ import {connect} from 'react-redux'
 ....
 
 
+
+
+PlayerReducer.js phase 2 
+
+export default function playerReducer(state = {players: []}, action ) {  problems coming from here 
+    switch (action.type){
+      case 'FETCH_PLAYERS':                                          // we just have fetch request 
+        return {players: action.payload}
+        case 'ADD_PLAYER':                                              // we need to another case 
+          return{...state, players: [...state.players, action.payload]} we have to hit evey single player thats already in my state 
+     default:                                                           and I also want to add a new one 
+        return state                                                    return{...state, players: [...state.players, action.payload]}
+    }                                                                   its always good to have ...state (spread operator) our state has one key with one value in this case. We would be fine with 1 spread operator but if we want to add more key and value in our state we would lose our orginal state so its always have to 2 spread operator for future but    
+                                                                        we are saying players point an array has all previous player in it with this new player (action.payload)                
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
                                                         ** mapStateToProps **
 mapStateToPops = {state} => {    
     return {                                ** I want to access to this particular part of the store **
@@ -190,7 +218,7 @@ our store directly from this component. so this is the formula access to this.pr
 
 
 
-App.js 
+App.js Phase 1 
 
 import React from 'react';
 import {connect} from 'react-redux'
@@ -241,6 +269,16 @@ export default function playerReducer(state = {players: []}, action ) {
 // }
 
 export default connect(null,{fetchPlayers})(App);
+
+
+
+
+
+
+
+
+
+
 -----------------------------------------------------------------------------------------------------------------------------------
 
 Part 2
@@ -313,8 +351,8 @@ class PlayerContainer extends React.Component{
       )                                              |
     }                                                |
                                                      |-------------------------------------------------------------------| 
-}                                                                                                                        |
-                                                            ****NOT***                                                   |    
+}               
+                                                          ****NOT***                                                   |    
  const mapStateToProps = state => { <----------  {fetchPlayers} equivalent to mapDispatchtoProps                         |
      return{                                  |   getting players for our REDUX STORE accessing them                     |
          players: state.players <-------------|-->through props inside this component then sending those players to our players component
@@ -375,9 +413,36 @@ class PlayerInput extends React.Component {
                                                our data successfully passed in to our addPlayer
  }
                                                 
+   handle submit phase 2 
    
-   
-   
+    handleSubmit = (event) => {
+    event.preventDefault()                   
+    this.props.addPlayer(this.state)         
+   this.setState({     <---------------------------------> We can use this to clear out a form after its been submitted                                       
+      name:'',         <---------------------------------> We want to reset our state back to look like empty state like above         
+      height: '',
+      weight: '',
+      position:'',
+      nationality:'',    
+      points:'',
+      appearance: '',
+      rebound:'',
+      assist:'',
+      age:'',
+      bonus:'',
+      bio:'',                           
+      image_url:'',
+      youtube_url:'',
+      likes:'',
+
+
+
+
+
+
+   })                                       
+}                                        
+       
    
    
    
@@ -464,10 +529,37 @@ export const addPlayer = (data) => {<---------initially setting up this data
 
 
 
+addPlayer.js Phase/2
+
+export const addPlayer = (data) => {             
+    
+    return (dispatch) => {     
+        fetch('http://localhost:3000/players', {   //post request to save to new player  it to our backend
+                                                   // second argument will be object 
+        headers: {                                  //<--- key that points to anothe object
+        'Content-Type': 'application/json',         // <--- we are saying we are sending down to our backend going to be JSON
+        'Accept':'application/json'                 // what kind of content will accepted on return on data
+        },
+        method : 'POST',                             // we have to tell it type of request           
+        body: JSON.stringify(data)                   // body is the data we are actually sending down in this case is that Player object we are passing as data as a argument in addPlayer = (data) => { 
+                                                    // we have to send server that just it accept it as a string 
+                                                     // where is now its an object })
+    })     
+                                                    // without .then we can see immidelty changing without refresh the page 
+                                                    // and we dont see it in our store when we refresh the page we re-render player container which is re-fetching players from the backend
+   // we need to pull Json on the response that string going to be sent over into object notation 
+    .then(response => response.json())         //<--------- so the reason we add this .then to our addPlayer is that 
+                                               // we just dont want the see only this update when we update when we refresh 
+                                               //we want that immidetly updated.
+    .then(player => dispatch({type: 'ADD_PLAYER',payload: player}))             // we are getting the data what ever we send it to backend player controller create method        
+  }                                              // and we want to dispatch this new account we just created 
+}                                               // what we have to pass into the dispatch ?
+                                               // ANSWER action type which we define in our reducer 
 
 
-
-
+Not: The reason we wanted the add .then statment to in our addAccount We dont want only to see new player when we updated the state 
+W want immediately be updated We've done now is saved our application from making an unnecessay extra fetch 
+request. Its is rightaway response back and ading it to our redux store without re-fetching the data 
 
 
 
@@ -541,3 +633,324 @@ import React from 'react'
  }
 
  export default Players
+
+ Players.js Phase2
+
+ const Players = (props) => {
+console.log(props.players[0].contracts)
+  return (
+   <div> 
+     {props.players.map(player =>      (props.players) holding all the players in our store       
+     <div key={player.id}><Player player={player}/></div>)} 
+     
+     #instead of players.name, player.height and attributes we just pass in our Player Component 
+     so we are saying we want to render a list item for each with an player for each player and remmeber this component
+     accepting props these props will have to hold a specific player what we have to pass in here.(props.players) holding all the players in our store 
+     we just iterating ove all those players for each player we want to create an player component and that player component 
+     must accept a player as props 
+                                                            
+     <Player player={player}/> we are rendering over our prop players creating an player component for each player and 
+                                                                 |
+                                                                 |
+                                                                 |
+    Player.js                                                    |
+    inside that player component we are now rendering the same information we saw before our ultimate gaol is that we not going the see 
+    in them a list this polayer will show all of the player information on its own page (diffrent page) so incorparated here 
+    thats where our routes are going to come into play! if we want to this player component to be seen for specific player when we go to 
+    some URL localhost:3001/players/1 then we are gonna have to bring in our reactor router 
+    
+    import React from 'react'
+
+    const Player = (props) => {
+
+    console.log(props)
+    return (
+    <li>
+   {props.player.name}-{props.player.height}-{props.player.weight}-{props.player.position}-{props.player.points}-{props.player.appearance}-{props.player.rebound}-{props.player.assist}-{props.player.age}-{props.player.nationality}-{props.player.bonus}-{props.player.image_url}-{props.player.youtube_url}-{props.player.likes}-{props.player.bio}-{props.player.contracts > 0 ? props.player.contracts[0].salary: "null"} }
+
+    </li>
+)
+
+
+}
+
+
+export default Player 
+                          
+    
+
+
+
+    
+ 
+   </div>
+
+
+  )
+
+ }
+
+ export default Players
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React from 'react',
+
+
+
+Player.js 
+Player.js  where we show specific Player  information  
+we just need functional component because we just displaying   we dont need anything with the state 
+just receving props doesnt need to update our state directly   since we are getting props from our players container 
+we will iterate over this player all we need to do pass information about that specific player 
+just set regular functional component  
+        
+import React from 'react'
+                                              ***  This is How this component accept props  ****
+const Player = (props) => { <-------------- so we need to pass props as a argument when we iterate and when we rendering 
+                                            a player component for each player we need to pass in props, this props that are coming in should be 
+                                            a specific player  we can also  destructive like const Player = {player}) => either one 
+                                            will work 
+ return (
+   <div>
+   
+   
+   </div>
+ )
+
+}
+
+Player.js Phase 2 
+
+import React from 'react'
+
+const Player = (props) => {
+
+console.log(props)
+return (
+    <li>  / this is how we gonna render each player data(key for each player) for each player 
+   {props.player.name}-{props.player.height}-{props.player.weight}-{props.player.position}-{props.player.points}-{props.player.appearance}-{props.player.rebound}-{props.player.assist}-{props.player.age}-{props.player.nationality}-{props.player.bonus}-{props.player.image_url}-{props.player.youtube_url}-{props.player.likes}-{props.player.bio}-{props.player.contracts > 0 ? props.player.contracts[0].salary: "null"} }
+
+    </li>
+)
+
+
+}
+
+
+export default Player 
+                         
+-------------------------------------------------------------------------------------------------------------------------------------
+
+ index.js phase 2 Routes                                       ROUTES 
+
+We are gonna have to bring in our reactor router in.
+we can a couple difrrent ways to do routes 
+1- We can wrap directly in our index.js file which will give any components just like provider gives any components inside of the app access 
+to setting up routes and using links like providers give us access for the store any child of components access to the store
+Router does the sam ething by giving any app and any child of app access to setting up routes and using links 
+
+
+ReactDOM.render(
+  <Provider store={store}>
+  <Router>
+   <App />
+   </Router>
+  </Provider>,
+  
+  document.getElementById('root')
+);
+
+
+2 - You can wrap that inside of App.js either one is fine the only diffrents if you set up in app.js app component itself does
+not have route so if you set up on index.js app component will have routes. So we will set up index.js
+
+
+  render() {
+    return (
+      <div className="App">
+      <Route
+        <PlayerContainer/>
+        <Route
+      </div>
+    );
+  }
+}
+-----------------------------------------------------------------------------------------------------------------------------------
+ index js file 
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {createStore, applyMiddleware, compose} from 'redux'
+import thunk from 'redux-thunk'
+import { Provider } from 'react-redux'
+import {BrowserRouter as Router} from 'react-router-dom'
+***we are saying we use BrowserRouter and we're just gonna call it when we actually set it up we just want to call Router 
+the only thing we need to import in this specific file, 'react-router-dom' we are just saying we have same features
+as just plain react  router plus some additional ones its include all the react router features  when we download when we create app in the begining 
+
+
+import playerReducer from './reducers/playerReducer'
+import App from './App';
+
+
+const composeEnchancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(playerReducer, composeEnchancers(applyMiddleware(thunk)))
+
+
+
+
+
+ReactDOM.render(
+  <Provider store={store}>
+  <Router> <----- We're gonna now wrap our app component in this router component so a;; this is doing issaying app any child 
+  component of app now has access to setting you can now set up routes and links inside any of those components 
+  so this is definetly a good spot to get this all set up okay 
+   <App />
+   </Router>
+  </Provider>,
+  
+  document.getElementById('root')
+);
+-------------------------------------------------------------------------------------------------------------------
+App.js Phase/2 or 3 
+ we are right now rendering just our players container we're  seeing everything in one page 
+ what routes gonna let us do is set up routes that are associated with certain components and 
+ that way when a user navigates to a specific routes they will only see the component that we set up inside our route tags
+
+import React from 'react';
+import {connect} from 'react-redux'
+import PlayerContainer from './containers/PlayersContainer'
+class App extends React.Component {
+ 
+ 
+
+  render() {
+    return (
+      <div className="App">
+        <PlayerContainer/> thats mean our PlayerContainer has access to setting up routes so 
+        
+      </div>
+    );
+  }
+}
+
+
+
+export default connect()(App);
+
+------------------------------------------------------------------------------------------------------------------------------
+
+PlayerContainer.js Phase new 
+
+
+We are setting up our routes here. The reason up our routes here instead of our app just with the way 
+we are setting up PlayerInput and Players component inside here. 
+
+
+
+<Route exact path='/players' render={() => < Players players={this.props.players}/> }
+                                                 players={this.props.players}/>
+                                                 Remember we set up our Players component as a 
+                                                 functional component and we're passing props from our players component that we are getting 
+                                                 from our store 
+
+from here //PlayersContainer
+ const mapStateToProps = state => {
+     return{
+         players: state.players
+     }
+ }
+
+since our PlayerContainer component our players container is the one that we have right now thats connected 
+to our store our app is not we did not connect it we are not fetching anything in  our app component 
+in order to still give our players component access to this props (players={this.props.players}/>)
+we want to set up our routes in this component. if we can move componentDidMount and mapStateToProps 
+to app.js we can also do that in app.js file but since we set them up in thsi component we can set pur routes here
+if we can we can move that to our app.js after
+
+
+
+
+import React from 'react';
+import Players from './Players'
+import {connect} from 'react-redux'
+import {fetchPlayers} from '../actions/fetchPlayers'
+import PlayerInput from '../components/PlayerInput'
+import {Route} from 'react-router-dom' we already import route in index. js so we just need import route here
+
+class PlayerContainer extends React.Component{
+  
+    componentDidMount(){
+  this.props.fetchPlayers()
+
+
+    }
+
+    render () {
+      console.log(this.props.players)
+      return (
+      <div> 
+       <Route path='/players/new' component={PlayerInput} />
+                      |---------------------------------------> we call it what every we want but restfull we usualy routing like this  for new player in url <Route path='/players/new'
+                                       |------------------------this is the component its should render when we go to component={PlayerInput} 
+
+
+       <Route exact path='/players' render={() => < Players players={this.props.players}/> } />
+       
+       
+       // our application is saying up here we're ath this path and you want me to render this component and this 
+       component receiving props.render={() => < Players players={this.props.players}/> } /renders takes in a function wheras this
+       just point it to a component or render is going to take in a function 
+      when you use render and when you want to pass in props to through a route the actual component in here is going to look just as it did as if 
+      if you were rendering it outside here you still going to pass in props and its just inside of this render  
+      
+      exact path='/players' 
+      exact we added exact keyword we are saying only show this component if the path exactly matches this /players
+      
+      
+      
+      </div>
+
+      )
+    }
+
+}
+
+ const mapStateToProps = state => {
+     return{
+         players: state.players
+     }
+ }
+
+
+export default connect(mapStateToProps, {fetchPlayers})(PlayerContainer)
+
+
+
+
+
+
+
+
+{props.player.name}-{props.player.height}-{props.player.weight}-{props.player.position}-{props.player.points}-{props.player.appearance}-{props.player.rebound}-{props.player.assist}-{props.player.age}-{props.player.nationality}-{props.player.bonus}-{props.player.image_url}-{props.player.youtube_url}-{props.player.likes}-{props.player.bio}-{props.player.contracts > 0 ? props.player.contracts[0].salary: "null"} }
