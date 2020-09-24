@@ -634,7 +634,7 @@ import React from 'react'
 
  export default Players
 
- Players.js Phase2
+ Players.js Phase3
 
  const Players = (props) => {
 console.log(props.players[0].contracts)
@@ -642,6 +642,8 @@ console.log(props.players[0].contracts)
    <div> 
      {props.players.map(player =>      (props.players) holding all the players in our store       
      <div key={player.id}><Player player={player}/></div>)} 
+     what we ultimately are going to to want this players component to do is render links for each players rather 
+     then the information about player itself
      
      #instead of players.name, player.height and attributes we just pass in our Player Component 
      so we are saying we want to render a list item for each with an player for each player and remmeber this component
@@ -759,6 +761,56 @@ return (
 
 export default Player 
                          
+Player.js phase 3
+
+
+const Player = (props) => {
+const {id} = useParams()
+
+
+let player = props.players[props.match.params.id - 1]<----------- pulled out speciific player that we are looking for based on 
+console.log(player)                                               current path 
+
+return (
+    <li>
+   Name:{player ? player.name : null} <br></br> <-------------------- we are rendering that we had to use this ternary operator 
+   Height:{player ? player.height : null}<br></br>                    first time props coming through we dont have the players yet 
+   Weight:{player ? player.weight : null} <br></br>                   and then after the first render we are able to access those players
+   Position:{player ? player.position : null}<br></br>
+   Appearance{player ? player.appearance : null} <br></br>
+   Points:{player ? player.points : null}<br></br>
+   Rebound{player ? player.rebound : null}<br></br>
+   Assist:{player ? player.assist : null}<br></br>
+   Age:{player ? player.age : null} <br></br>
+   Nationality:{player ? player.nationality : null}<br></br>
+   Bonus:{player ? player.bonus : null} <br></br>
+   Image:{player ? player.image_url : null}<br></br>
+   HighLights:{player ? player.youtube_url : null}<br></br>
+   likes:{player ? player.likes : null}<br></br>
+   Bio:{player ? player.bio : null}<br></br>
+   contract: $ {player ? player.contracts[0].salary:null}<br></br>
+   start date:  {player ? player.contracts[0].start_date:null}<br></br>
+   end  date:  {player ? player.contracts[0].expiration_date:null}<br></br>
+   Team Name: {player ? player.contracts[0].team_name:null}<br></br>
+    </li>
+)
+
+
+}
+
+
+export default Player 
+
+
+
+
+
+
+
+
+
+
+
 -------------------------------------------------------------------------------------------------------------------------------------
 
  index.js phase 2 Routes                                       ROUTES 
@@ -774,7 +826,8 @@ ReactDOM.render(
   <Provider store={store}>
   <Router>
    <App />
-   </Router>
+   </Router> <------------ we wrapped our app in router which gives us access to the route compnent which gives us access
+                          using the route componet in any child component or inside the app itself 
   </Provider>,
   
   document.getElementById('root')
@@ -848,8 +901,8 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <PlayerContainer/> thats mean our PlayerContainer has access to setting up routes so 
-        
+        <PlayersContainer/> <--------thats mean our PlayerContainer has access to setting up routes so 
+                                     inside of app all we are doing is still rendering our PlayersContainer
       </div>
     );
   }
@@ -861,7 +914,7 @@ export default connect()(App);
 
 ------------------------------------------------------------------------------------------------------------------------------
 
-PlayerContainer.js Phase new 
+PlayerContainer.js Phase 1
 
 
 We are setting up our routes here. The reason up our routes here instead of our app just with the way 
@@ -948,9 +1001,49 @@ export default connect(mapStateToProps, {fetchPlayers})(PlayerContainer)
 
 
 
+PlayerContainer.js Phase 2
+
+import React from 'react';
+import Players from './Players'
+import {connect} from 'react-redux'
+import {fetchPlayers} from '../actions/fetchPlayers'
+import PlayerInput from '../components/PlayerInput'
+import Player from '../components/Player'
+import {Route} from 'react-router-dom'
+
+class PlayerContainer extends React.Component{
+  
+    componentDidMount(){
+  this.props.fetchPlayers()
 
 
+    }
+
+    render () {
+      console.log(this.props.players)
+      return (
+      <div> 
+       <Route path='/players/new' component={PlayerInput} /><--- Accounts container now  instead of rendering directly 
+                                   |------------------|      our player input in our players components hold our routes----|
+      ourPlayerInput we're just rendering with this components whereas our player in our players                           |
+              we are using render |    |   we are passing in not only routes props but also these all of these players     |
+              that are coming from our redux Store                                                                         |
+       <Route path='/players/:id' render={(routerProps) => < Player {...routerProps} players={this.props.players}/> }/>    |
+       <Route exact path='/players' render={(routerProps) => < Players {...routerProps} players={this.props.players}/> }/> |
+                                                              |-------|----------------------------------------------------|
+      
+      </div>
+
+      )
+    }
+
+}
+
+ const mapStateToProps = state => {
+     return{
+         players: state.players
+     }
+ }
 
 
-
-{props.player.name}-{props.player.height}-{props.player.weight}-{props.player.position}-{props.player.points}-{props.player.appearance}-{props.player.rebound}-{props.player.assist}-{props.player.age}-{props.player.nationality}-{props.player.bonus}-{props.player.image_url}-{props.player.youtube_url}-{props.player.likes}-{props.player.bio}-{props.player.contracts > 0 ? props.player.contracts[0].salary: "null"} }
+export default connect(mapStateToProps, {fetchPlayers})(PlayerContainer)
