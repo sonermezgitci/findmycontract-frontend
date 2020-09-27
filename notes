@@ -642,6 +642,11 @@ console.log(props.players[0].contracts)
    <div> 
      {props.players.map(player =>      (props.players) holding all the players in our store       
      <div key={player.id}><Player player={player}/></div>)} 
+     
+     Players component is rendering itearting over all the players in rendering our player component 
+     
+     
+     
      what we ultimately are going to to want this players component to do is render links for each players rather 
      then the information about player itself
      
@@ -767,12 +772,18 @@ Player.js phase 3
 const Player = (props) => {
 const {id} = useParams()
 
-
+* this looking a player at the index of new which of course not exist we just seeing null render here with this - 
+But the issue is not even that we're seeing this this componnets is rendering at all we dont want this component rendered when we're
+on this new form. 
 let player = props.players[props.match.params.id - 1]<----------- pulled out speciific player that we are looking for based on 
 console.log(player)                                               current path 
 
 return (
     <li>
+
+* We Set up ternary operator in case FIRST TIME IT RENDERED the props were undefined Since the condition is false or undefined then we just seeing null. 
+its going to work if we're navigating through links. if you are refreshing page in any way  and your Redux store gonna clear out
+ thats mean the props that you are passing the first time that it gets them they will be undefined. something to keep in mind. 
    Name:{player ? player.name : null} <br></br> <-------------------- we are rendering that we had to use this ternary operator 
    Height:{player ? player.height : null}<br></br>                    first time props coming through we dont have the players yet 
    Weight:{player ? player.weight : null} <br></br>                   and then after the first render we are able to access those players
@@ -1031,13 +1042,13 @@ class PlayerContainer extends React.Component{
        <Route path='/players/:id' render={(routerProps) => < Player {...routerProps} players={this.props.players}/> }/>    |
        <Route exact path='/players' render={(routerProps) => < Players {...routerProps} players={this.props.players}/> }/> |
                                                               |-------|----------------------------------------------------|
-      
       </div>
 
       )
     }
 
 }
+      
 
  const mapStateToProps = state => {
      return{
@@ -1047,3 +1058,60 @@ class PlayerContainer extends React.Component{
 
 
 export default connect(mapStateToProps, {fetchPlayers})(PlayerContainer)
+
+
+      
+      
+      
+      
+      * We set up props.match is only only when we go through route  ->(player.js let player = props.players[props.match.params.id - 1])
+   going to route meaning when we go this way -> url:localhost:3001/players/2 (thorugh the route when we're trying to get that specific player information)
+    
+    *If We just trying to render this account individually -> players.js ->  <div key={player.id}><Player player={player}</div>
+    we are no longer passing in those router props here -> Player player={player} so the issue is that we are trying to access this plauer component 
+    in two ways 
+    1- Just rendering it normally -> <div key={player.id}><Player player={player}</div>
+    2 through the route. What does it mean? instead of rendering this here -> <div key={player.id}><Player player={player}</div>
+    we are going to set up links to each player show page that way never going to be rendering this component without going through
+    the route so instead of doing rendering this player here we want to iterate ove all the players and create link for each players!
+    so when we see a list of links and when we click that link we would then see this player component for that specific player 
+
+
+    players.js 
+
+    
+import React from 'react'
+import Player from '../components/Player'
+import {Route, Link} from 'react-router-dom'<---------added Link 
+
+
+const Players = (props) => {
+
+// console.log(props.players[0].contracts)
+  return (
+   <div> 
+     {props.players.map(player => 
+     <li key={player.id}> 
+     <Link to={`/players/${player.id}`}>{player.name}</Link>    
+     * We are creating these links and the text that we'll see for this link is this player name 
+     * interpolating this specific player Id when you interpolating something you have to wrap thsi whole thing in these 
+        JSX tags to={`/players/${player.id}`}>{ its needs a specific path to go which will need a playerID
+    * We are no longer rendering Player.js component, Player.js component rendering because the route which 
+    we set up in PlayerContainer -> <Route path='/players/:id' render={(routerProps) => < Player {...routerProps} players={this.props.players}/> }/> 
+  its getting props and player from here when everytime we click link will be coming from here.
+  * we set up path={} in routes, to={} into link
+
+     </li>)}
+
+
+
+    
+ 
+   </div>
+
+
+  )
+
+ }
+
+ export default Players

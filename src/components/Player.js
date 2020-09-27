@@ -1,5 +1,7 @@
 import React from 'react'
 import { useParams} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
+import ContractsContainer from '../containers/ContractsContainer'
 
 const Player = (props) => {
 const {id} = useParams()
@@ -9,7 +11,9 @@ let player = props.players[props.match.params.id - 1]
 console.log(player)
 
 return (
-    <li>
+    <div>
+    <h4>
+    {/* {player ? null : <Redirect to='/players'/>} */}
    Name:{player ? player.name : null} <br></br>
    Height:{player ? player.height : null}<br></br>
    Weight:{player ? player.weight : null} <br></br>
@@ -29,7 +33,11 @@ return (
    start date:  {player ? player.contracts[0].start_date:null}<br></br>
    end  date:  {player ? player.contracts[0].expiration_date:null}<br></br>
    Team Name: {player ? player.contracts[0].team_name:null}<br></br>
-    </li>
+ <br></br>
+
+ <ContractsContainer/>
+ </h4>
+ </div>
 )
 
 
