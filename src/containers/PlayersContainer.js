@@ -1,5 +1,5 @@
 import React from 'react';
-import Players from './Players'
+import Players from '../components/Players'
 import {connect} from 'react-redux'
 import {fetchPlayers} from '../actions/fetchPlayers'
 import PlayerInput from '../components/PlayerInput'

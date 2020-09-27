@@ -1,6 +1,7 @@
 import React from 'react'
-import Player from '../components/Player'
+import Player from './Player'
 import {Route, Link} from 'react-router-dom'
+
 const Players = (props) => {
 // console.log(props.players[0].contracts)
   return (

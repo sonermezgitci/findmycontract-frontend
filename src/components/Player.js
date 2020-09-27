@@ -7,6 +7,8 @@ const Player = (props) => {
 const {id} = useParams()
 
 
+// let player = props.players.filter(player => player.id == props.match.params.id[0])
+
 let player = props.players[props.match.params.id - 1]
 console.log(player)
 
@@ -18,7 +20,7 @@ return (
    Height:{player ? player.height : null}<br></br>
    Weight:{player ? player.weight : null} <br></br>
    Position:{player ? player.position : null}<br></br>
-   Appearance{player ? player.appearance : null} <br></br>
+   Appearance:{player ? player.appearance : null} <br></br>
    Points:{player ? player.points : null}<br></br>
    Rebound{player ? player.rebound : null}<br></br>
    Assist:{player ? player.assist : null}<br></br>
@@ -29,13 +31,13 @@ return (
    HighLights:{player ? player.youtube_url : null}<br></br>
    likes:{player ? player.likes : null}<br></br>
    Bio:{player ? player.bio : null}<br></br>
-   contract: $ {player ? player.contracts[0].salary:null}<br></br>
-   start date:  {player ? player.contracts[0].start_date:null}<br></br>
-   end  date:  {player ? player.contracts[0].expiration_date:null}<br></br>
-   Team Name: {player ? player.contracts[0].team_name:null}<br></br>
+   {/* contract: $ {player ? player.contracts[0].salary:null}<br></br> */}
+   {/* start date:  {player ? player.contracts[0].start_date:null}<br></br> */}
+   {/* end  date:  {player ? player.contracts[0].expiration_date:null}<br></br> */}
+   {/* Team Name: {player ? player.contracts[0].team_name:null}<br></br> */}
  <br></br>
 
- <ContractsContainer/>
+ <ContractsContainer player={player}/>
  </h4>
  </div>
 )

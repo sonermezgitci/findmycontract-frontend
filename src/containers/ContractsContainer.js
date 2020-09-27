@@ -1,6 +1,6 @@
 import React from 'react'
 import ContractInput from '../components/ContractInput'
-
+import Contracts from '../components/Contracts'
 
 
 
@@ -10,8 +10,8 @@ render () {
    return (
    <div>
     
-     <ContractInput/>
-
+     <Contracts contracts={this.props.player && this.props.player.contracts}/><br></br>
+     <ContractInput player={this.props.player}/>
 
 
    </div>

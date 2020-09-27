@@ -283,7 +283,7 @@ export default connect(null,{fetchPlayers})(App);
 
 Part 2
 
-Containers/PlayerContainers.js
+Containers/PlayersContainers.js
 
 someone to be able to creat players and then a view list of players and maybe edit players and contract 
 // something that we wnt to contained with this players.
@@ -572,7 +572,7 @@ request. Its is rightaway response back and ading it to our redux store without 
 
 
 
-   Functional Component / Players.js 
+   Functional Component / Players.js Phase 1
 
 you could have choose to have this as a class component as far as the requirements are concerned you need five 
 functional components so this could be a good one to use if you had five others without having something like this as a 
@@ -1012,7 +1012,7 @@ export default connect(mapStateToProps, {fetchPlayers})(PlayerContainer)
 
 
 
-PlayerContainer.js Phase 2
+PlayersContainer.js Phase 2
 
 import React from 'react';
 import Players from './Players'
@@ -1076,8 +1076,24 @@ export default connect(mapStateToProps, {fetchPlayers})(PlayerContainer)
     the route so instead of doing rendering this player here we want to iterate ove all the players and create link for each players!
     so when we see a list of links and when we click that link we would then see this player component for that specific player 
 
+ PlayersContainer Phase 3 added Switch
 
-    players.js 
+ We added switch statement which meant that everytime we went to player we went http://localhost:3001/players/new -> (<Route path='/players/new' component={PlayerInput} />)
+ We also saw this path='/players/:id so we added that switch that when we go to /players/new  we only see PlayerInput -> (<Route path='/players/new' component={PlayerInput}/>)
+
+   return (
+      <div> 
+      <Switch>
+       <Route path='/players/new' component={PlayerInput} />
+       <Route path='/players/:id' render={(routerProps) => < Player {...routerProps} players={this.props.players}/> }/>
+       <Route path='/players' render={(routerProps) => < Players {...routerProps} players={this.props.players}/> } />
+       </Switch>
+      
+      </div>
+
+
+
+    players.js phase 4
 
     
 import React from 'react'
@@ -1093,6 +1109,8 @@ const Players = (props) => {
      {props.players.map(player => 
      <li key={player.id}> 
      <Link to={`/players/${player.id}`}>{player.name}</Link>    
+    
+    
      * We are creating these links and the text that we'll see for this link is this player name 
      * interpolating this specific player Id when you interpolating something you have to wrap thsi whole thing in these 
         JSX tags to={`/players/${player.id}`}>{ its needs a specific path to go which will need a playerID
@@ -1115,3 +1133,127 @@ const Players = (props) => {
  }
 
  export default Players
+
+ContractsContainer.js 
+
+We set up ContractsContainer with for rendering player component which is having Contract input and 
+as well as list of Contracts that will be all associated with the player which 
+this container is being rendered --------> Player.js--- <ContractsContainer player={player}/>                                
+
+
+import React from 'react'
+import ContractInput from '../components/ContractInput'
+import Contracts from '../components/Contracts'
+
+
+
+class ContractsContainer extends React.Component{
+
+render () {
+   return (
+   <div>
+    
+     <ContractInput/> which is having Contract input 
+     <Contracts contracts={this.props.player && this.props.player.contracts}/>
+**We Are succesfully able to pass our contracts component contracts prop of the contartcs assoicated with the player that 
+We passed into the container from the player component 
+
+   </div>
+
+
+
+   )
+
+
+}
+
+
+
+
+}
+
+export default ContractsContainer
+
+
+
+Players,js Phase5
+
+import React from 'react'
+import { useParams} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
+import ContractsContainer from '../containers/ContractsContainer'
+
+const Player = (props) => {
+const {id} = useParams()
+
+
+let player = props.players[props.match.params.id - 1]
+console.log(player)
+
+return (
+    <div>
+    <h4>
+    {/* {player ? null : <Redirect to='/players'/>} */}
+   Name:{player ? player.name : null} <br></br>
+   Height:{player ? player.height : null}<br></br>
+   Weight:{player ? player.weight : null} <br></br>
+   Position:{player ? player.position : null}<br></br>
+   Appearance{player ? player.appearance : null} <br></br>
+   Points:{player ? player.points : null}<br></br>
+   Rebound{player ? player.rebound : null}<br></br>
+   Assist:{player ? player.assist : null}<br></br>
+   Age:{player ? player.age : null} <br></br>
+   Nationality:{player ? player.nationality : null}<br></br>
+   Bonus:{player ? player.bonus : null} <br></br>
+   Image:{player ? player.image_url : null}<br></br>
+   HighLights:{player ? player.youtube_url : null}<br></br>
+   likes:{player ? player.likes : null}<br></br>
+   Bio:{player ? player.bio : null}<br></br>
+   contract: $ {player ? player.contracts[0].salary:null}<br></br>
+   start date:  {player ? player.contracts[0].start_date:null}<br></br>
+   end  date:  {player ? player.contracts[0].expiration_date:null}<br></br>
+   Team Name: {player ? player.contracts[0].team_name:null}<br></br>
+ <br></br>
+
+ <ContractsContainer player={player}/> 
+** We passed in this ContractsContainer a specific player which will make easier for us to associate all those contracts 
+with an player on the backend as well as on the frontend
+
+
+
+
+
+ </h4>
+ </div>
+)
+
+
+}
+
+
+export default Player 
+                          
+
+ContractInput.js
+
+import React from 'react'
+
+class ContractInput extends React.Component {
+
+render () {
+
+return (
+ <div>
+
+      ContractInput 
+
+ </div>
+
+
+)
+
+}
+
+}
+
+export default ContractInput 
