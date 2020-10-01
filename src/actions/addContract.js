@@ -1,7 +1,8 @@
 export const addContract = ( contract, playerId) => {
 
     return(dispatch) => {
-    fetch(`http://localhost:3000/players/${playerId}/contracts`, {
+        console.log(contract)
+    fetch(`http://localhost:3000/contracts`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

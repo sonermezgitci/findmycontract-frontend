@@ -4,13 +4,14 @@ import {Redirect} from 'react-router-dom'
 import ContractsContainer from '../containers/ContractsContainer'
 
 const Player = (props) => {
-const {id} = useParams()
+const {id} =useParams()
+
+let player = props.players.filter(player => player.id == parseInt(id))[0]
 
 
-// let player = props.players.filter(player => player.id == props.match.params.id[0])
 
-let player = props.players[props.match.params.id - 1]
-console.log(player)
+// let player = props.players[props.match.params.id - 1]
+
 
 return (
     <div>
@@ -26,12 +27,12 @@ return (
    Assist:{player ? player.assist : null}<br></br>
    Age:{player ? player.age : null} <br></br>
    Nationality:{player ? player.nationality : null}<br></br>
-   Bonus:{player ? player.bonus : null} <br></br>
+   {/* Bonus:{player ? player.bonus : null} <br></br> */}
    Image:{player ? player.image_url : null}<br></br>
    HighLights:{player ? player.youtube_url : null}<br></br>
    likes:{player ? player.likes : null}<br></br>
    Bio:{player ? player.bio : null}<br></br>
-   {/* contract: $ {player ? player.contracts[0].salary:null}<br></br> */}
+   contract: $ {player ? player.contracts[0].salary:null}<br></br>
    {/* start date:  {player ? player.contracts[0].start_date:null}<br></br> */}
    {/* end  date:  {player ? player.contracts[0].expiration_date:null}<br></br> */}
    {/* Team Name: {player ? player.contracts[0].team_name:null}<br></br> */}

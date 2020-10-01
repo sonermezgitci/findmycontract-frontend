@@ -17,15 +17,26 @@ class ContractInput extends React.Component {
       this.setState({
          [event.target.name]: event.target.value
 
-
+  
       })
 
 
       }
 handleSubmit = (event) => {
-event.preventDefault()
-// addContract(this.state, this.props.id)
+  event.preventDefault()
+  this.props.addContract(this.state, this.props.player.id)
+  this.setState({
+     player_name:'',
+     team_name:'',
+     start_date:'',
+     expiration_date:'',
+     amount:'',
+     salary:'',
+     bonus:''
 
+
+
+ })
 
 
 }
@@ -73,4 +84,4 @@ return (
 
 }
 
-export default connect(null)(ContractInput) 
+export default connect(null, {addContract})(ContractInput) 
