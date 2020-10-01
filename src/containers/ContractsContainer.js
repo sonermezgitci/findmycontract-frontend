@@ -11,7 +11,7 @@ render () {
    <div>
     
      <Contracts contracts={this.props.player && this.props.player.contracts}/><br></br>
-     <ContractInput player={this.props.player}/>
+     {/* <ContractInput player={this.props.player}/> */}
 
 
    </div>

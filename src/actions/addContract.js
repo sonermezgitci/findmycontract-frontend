@@ -1,16 +1,17 @@
 export const addContract = ( contract, playerId) => {
 
     return(dispatch) => {
-        console.log(contract)
+        let newContract = {...contract, player_id:1, team_id:1}
     fetch(`http://localhost:3000/contracts`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
     },
-    body: JSON.stringify(contract)
+    body: JSON.stringify(newContract)
     })
     .then(response => response.json())
     .then(contract => dispatch({type: 'ADD_CONTRACT', payload: contract}))
-
+     
     }
 }

@@ -2,6 +2,9 @@ import React from 'react'
 import { useParams} from 'react-router-dom'
 import {Redirect} from 'react-router-dom'
 import ContractsContainer from '../containers/ContractsContainer'
+import {connect} from 'react-redux'
+import Contracts from './Contracts'
+import ContractInput from './ContractInput'
 
 const Player = (props) => {
 const {id} =useParams()
@@ -39,6 +42,8 @@ return (
  <br></br>
 
  <ContractsContainer player={player}/>
+ {props.newContract? <Contracts newContract={props.newContract}/> : null}
+ <ContractInput player={player}/>
  </h4>
  </div>
 )
@@ -46,6 +51,15 @@ return (
 
 }
 
+const mapStateToProps = (state) => {
+    console.log(state.newContract)
+return {
+newContract: state.newContract
 
-export default Player 
+}
+
+}
+
+
+export default connect(mapStateToProps) (Player )
                                                            

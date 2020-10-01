@@ -10,7 +10,9 @@ class ContractInput extends React.Component {
      expiration_date:'',
      amount:'',
      salary:'',
-     bonus:''
+     bonus:'',
+     player_id:'',
+     team_id:''
      }
  
       handleChange = (event) => {
@@ -32,8 +34,10 @@ handleSubmit = (event) => {
      expiration_date:'',
      amount:'',
      salary:'',
-     bonus:''
-
+     bonus:'',
+     player_id:'',
+     team_id:''
+     
 
 
  })
