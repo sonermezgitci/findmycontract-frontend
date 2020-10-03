@@ -35,7 +35,7 @@ return (
    HighLights:{player ? player.youtube_url : null}<br></br>
    likes:{player ? player.likes : null}<br></br>
    Bio:{player ? player.bio : null}<br></br>
-   contract: $ {player ? player.contracts[0].salary:null}<br></br>
+   contract: $ {player ? player.contracts.salary:null}<br></br>
    {/* start date:  {player ? player.contracts[0].start_date:null}<br></br> */}
    {/* end  date:  {player ? player.contracts[0].expiration_date:null}<br></br> */}
    {/* Team Name: {player ? player.contracts[0].team_name:null}<br></br> */}

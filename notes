@@ -100,7 +100,7 @@ Chapter-1                                     |
  fetch ('http://localhost:3000/players')                  we are passing in dispatch built in dispatch function as an argument 
   .then(response => response.json())                      so that we can use it inside of our action creator and dispatch 
   .then(players => dispatch ({                            the response from our fetch
-   type: 'FETCH_ACCOUNTS',
+   type: 'FETCH_PLAYERS',
    payload: players
   }))                     
 
@@ -121,7 +121,7 @@ Chapter-1                                     |
  |
  | }
  |
- |   chapter 2/  playerReducer.js
+ |   chapter 1/  playerReducer.js
  |
  |     so what we have to do with our reducer all its doing returning this initial state, i want my reducer  yo be everytime we dispatch
  |     an action i wanted to update the state based on that action so what we need to do and you know we need set up switch statement 
@@ -1257,3 +1257,32 @@ return (
 }
 
 export default ContractInput 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ppayer reducer 
+ADD_CONTRACT alternatif code 
+
+
+
+
+  // let players = state.players.map(player =>{
+          //   if (player.id === action.payload.player_id ){
+          //   return action.payload
+          //   } else {
+          //     return player
+          //   } 
+          // })

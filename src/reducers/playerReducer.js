@@ -8,14 +8,11 @@ export default function playerReducer(state = {players: []}, action ) {
         case 'ADD_PLAYER':
           return{...state, players: [...state.players, action.payload]} 
         case 'ADD_CONTRACT':
-          // let players = state.players.map(player =>{
-          //   if (player.id === action.payload.player_id ){
-          //   return action.payload
-          //   } else {
-          //     return player
-          //   } 
-          // })
+        
           return {...state, newContract: action.payload}
+         case'DELETE_CONTRACT':
+        //  debugger
+         return {...state, newContract: action.payload}
       default:                                                           
         return state                                                   
     }                                                                  
