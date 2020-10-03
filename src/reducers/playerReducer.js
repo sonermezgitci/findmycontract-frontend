@@ -12,7 +12,7 @@ export default function playerReducer(state = {players: []}, action ) {
           return {...state, newContract: action.payload}
          case'DELETE_CONTRACT':
         //  debugger
-         return {...state, newContract: action.payload}
+         return {...state, newContract: action.payload.contract}
       default:                                                           
         return state                                                   
     }                                                                  

@@ -52,10 +52,10 @@ return (
 }
 
 const mapStateToProps = (state) => {
-    console.log(state.newContract)
+    // console.log(state.newContract)
 return {
-newContract: state.newContract
-
+newContract: state.newContract,
+delete: state.newContracts
 }
 
 }

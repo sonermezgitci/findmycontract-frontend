@@ -18,10 +18,10 @@ const handleRender = (props) => {
 
 
 if (props.contracts){
-  console.log(props.contracts[0].salary)
+  
   return  props.contracts.map(contract => 
     
-    <li key={contract.id}>{contract.player_name}<br></br>Team:{contract.team_name}<br></br> Contract Start Date:{contract.start_date}<br></br>Contract Expiration Date:{contract.expiration_date}<br></br>Contract Amount:${contract.amount}<br></br> Salary:${contract.salary}<br></br>Bonus:${contract.bonus}<br ></br><button onClick={() => handleDelete(contract)}>Delete</button></li>
+    <li key={contract.id}>{contract.player_name}<br></br>Team:{contract.team_name}<br></br> Contract Start Date:{contract.start_date}<br></br>Contract Expiration Date:{contract.expiration_date}<br></br>Contract Amount:${contract.amount}<br></br> Salary:${contract.salary}<br></br>Bonus:${contract.bonus}<br ></br></li>
         )
 
 }
