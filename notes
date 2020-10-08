@@ -390,10 +390,10 @@ class PlayerInput extends React.Component {
  be either name of balance [] first reads value associated with this and then sets it as a key ->  [event.target.name]:
 
                                                 
-                                                 //  name="name"onChange={this.handleChange} 
-                                                 //name need to be match with key name in the state 
-                                                 //we are going to be abstracting out this name value for both of these inputs 
-                                                  // we want to name that we assign match our state the keys that we have in our state
+     name="name"onChange={this.handleChange} 
+     name need to be match with key name in the state we are going to be abstracting out 
+     this name value for both of these inputs we want to name that we assign match our state 
+     the keys that we have in our state
  
  
  
@@ -1034,7 +1034,7 @@ class PlayerContainer extends React.Component{
       console.log(this.props.players)
       return (
       <div> 
-       <Route path='/players/new' component={PlayerInput} /><--- Accounts container now  instead of rendering directly 
+       <Route path='/players/new' component={PlayerInput} /><--- Players container now  instead of rendering directly 
                                    |------------------|      our player input in our players components hold our routes----|
       ourPlayerInput we're just rendering with this components whereas our player in our players                           |
               we are using render |    |   we are passing in not only routes props but also these all of these players     |

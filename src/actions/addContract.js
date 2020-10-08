@@ -1,7 +1,7 @@
-export const addContract = ( contract, playerId) => {
+export const addContract = ( contract, playerId,teamId) => {
 
     return(dispatch) => {
-        let newContract = {...contract, player_id:1, team_id:1}
+        let newContract = {...contract, player_id:playerId }
     fetch(`http://localhost:3000/contracts`, {
     method: 'POST',
     headers: {

@@ -5,13 +5,15 @@ import ContractsContainer from '../containers/ContractsContainer'
 import {connect} from 'react-redux'
 import Contracts from './Contracts'
 import ContractInput from './ContractInput'
+import Contract from './Contract'
 
 const Player = (props) => {
 const {id} =useParams()
 
 let player = props.players.filter(player => player.id == parseInt(id))[0]
-
-
+// let contract = props.player.contracts.filter (contract => contract.id = parseInt(id)[0])
+// let contract = props.contracts.filter(contract => contract.id == parseInt(id)[0])
+// let contract = props.contracts[props.match.params.id - 1]
 
 // let player = props.players[props.match.params.id - 1]
 
@@ -30,20 +32,22 @@ return (
    Assist:{player ? player.assist : null}<br></br>
    Age:{player ? player.age : null} <br></br>
    Nationality:{player ? player.nationality : null}<br></br>
-   {/* Bonus:{player ? player.bonus : null} <br></br> */}
    Image:{player ? player.image_url : null}<br></br>
    HighLights:{player ? player.youtube_url : null}<br></br>
    likes:{player ? player.likes : null}<br></br>
    Bio:{player ? player.bio : null}<br></br>
    contract: $ {player ? player.contracts.salary:null}<br></br>
-   {/* start date:  {player ? player.contracts[0].start_date:null}<br></br> */}
-   {/* end  date:  {player ? player.contracts[0].expiration_date:null}<br></br> */}
-   {/* Team Name: {player ? player.contracts[0].team_name:null}<br></br> */}
+   start date:  {player ? player.contracts[0].start_date:null}<br></br> 
+   end  date:  {player ? player.contracts[0].expiration_date:null}<br></br>
+   Team Name: {player ? player.contracts[0].team_name:null}<br></br>  */}
+   {/* Bonus:{player ? player.bonus : null} <br></br> */}
  <br></br>
 
  <ContractsContainer player={player}/>
- {props.newContract? <Contracts newContract={props.newContract}/> : null}
+ {props.newContract? <Contracts newContract={props.newContract} /> : null}
+ {/* {props.contract? <Contract contract={props.contract} /> : null} */}
  <ContractInput player={player}/>
+ 
  </h4>
  </div>
 )
@@ -55,7 +59,8 @@ const mapStateToProps = (state) => {
     // console.log(state.newContract)
 return {
 newContract: state.newContract,
-delete: state.newContracts
+delete: state.newContracts,
+contract :state.contract
 }
 
 }

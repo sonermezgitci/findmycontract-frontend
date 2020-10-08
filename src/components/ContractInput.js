@@ -4,14 +4,14 @@ import { addContract } from '../actions/addContract'
 
 class ContractInput extends React.Component {
      state = {
-     player_name:'',
-     team_name:'',
+   //   player_name:'',
+   //   team_name:'',
      start_date:'',
      expiration_date:'',
      amount:'',
      salary:'',
      bonus:'',
-     player_id:'',
+   //   player_id:'',
      team_id:''
      }
  
@@ -26,16 +26,19 @@ class ContractInput extends React.Component {
       }
 handleSubmit = (event) => {
   event.preventDefault()
+  
   this.props.addContract(this.state, this.props.player.id)
+  // try to find team_id and pass it down to team name in 29 use find 
+//   this.props.addContract(this.state, this.props.player.id) with team id 
   this.setState({
-     player_name:'',
-     team_name:'',
+   //   player_name:'',
+   //   team_name:'',
      start_date:'',
      expiration_date:'',
      amount:'',
      salary:'',
      bonus:'',
-     player_id:'',
+   //   player_id:'',
      team_id:''
      
 
@@ -58,7 +61,12 @@ return (
    <input text="text" name="player_name" value={this.state.player_name} onChange={this.handleChange}/>
    <br></br>
    <label>Team Name: </label>
-   <input text="text" name="team_name" value={this.state.team_name} onChange={this.handleChange}/>
+   <select  name="team_id"   onChange={this.handleChange}>
+   <option  value="NONE" >PLEASE SELECT THE TEAM</option>
+   {this.props.teams.map(team => {
+      return <option  key={team.id} value={team.id}>{team.name}</option>
+   })}
+   </select>
    <br></br>
    <label>Contract Start Date:</label>
    <input text="text" name="start_date" value={this.state.start_date} onChange={this.handleChange}/>
@@ -81,11 +89,19 @@ return (
 
  </div>
 
-
+//mapstateprops for teams
 )
 
 }
 
 }
 
-export default connect(null, {addContract})(ContractInput) 
+
+const mapStateToProps = state => {
+   return{
+    
+       teams:state.teams
+       
+   }
+}
+export default connect(mapStateToProps, {addContract})(ContractInput) 
