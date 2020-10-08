@@ -36,16 +36,16 @@ return (
    HighLights:{player ? player.youtube_url : null}<br></br>
    likes:{player ? player.likes : null}<br></br>
    Bio:{player ? player.bio : null}<br></br>
-   contract: $ {player ? player.contracts.salary:null}<br></br>
-   start date:  {player ? player.contracts[0].start_date:null}<br></br> 
+   {/* contract: $ {player ? player.contracts.salary:null}<br></br> */}
+   {/* start date:  {player ? player.contracts[0].start_date:null}<br></br> 
    end  date:  {player ? player.contracts[0].expiration_date:null}<br></br>
-   Team Name: {player ? player.contracts[0].team_name:null}<br></br>  */}
-   {/* Bonus:{player ? player.bonus : null} <br></br> */}
+   Team Name: {player ? player.contracts[0].team_name:null}<br></br>  
+   Bonus:{player ? player.bonus : null} <br></br> */} */}
  <br></br>
 
  <ContractsContainer player={player}/>
  {props.newContract? <Contracts newContract={props.newContract} /> : null}
- {/* {props.contract? <Contract contract={props.contract} /> : null} */}
+ {props.contract? <Contract contract={props.contract} /> : null}
  <ContractInput player={player}/>
  
  </h4>
