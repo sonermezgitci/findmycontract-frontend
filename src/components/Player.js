@@ -40,7 +40,7 @@ return (
    {/* start date:  {player ? player.contracts[0].start_date:null}<br></br> 
    end  date:  {player ? player.contracts[0].expiration_date:null}<br></br>
    Team Name: {player ? player.contracts[0].team_name:null}<br></br>  
-   Bonus:{player ? player.bonus : null} <br></br> */} */}
+   Bonus:{player ? player.bonus : null} <br></br> */} 
  <br></br>
 
  <ContractsContainer player={player}/>

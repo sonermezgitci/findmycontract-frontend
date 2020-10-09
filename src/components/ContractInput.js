@@ -1,52 +1,59 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import { addContract } from '../actions/addContract'
+import Contract from './Contracts'
 
 class ContractInput extends React.Component {
      state = {
-   //   player_name:'',
-     team_name:'',
-     start_date:'',
-     expiration_date:'',
-     amount:'',
-     salary:'',
-     bonus:'',
-     player_id:'',
-     team_id:''
-     }
+         //   player_name:'',
+          team_name:'',
+          player_id:'',
+         start_date:'',
+         expiration_date:'',
+         amount:'',
+         salary:'',
+         bonus:'',
+         team_id:'',
+         info:''
+         }
  
       handleChange = (event) => {
-      this.setState({
-         [event.target.name]: event.target.value
-
-  
+         this.setState({
+            [event.target.name]: event.target.value
       })
 
 
       }
-handleSubmit = (event) => {
-  event.preventDefault()
-  
-  this.props.addContract(this.state, this.props.player.id)
-  // try to find team_id and pass it down to team name in 29 use find 
-//   this.props.addContract(this.state, this.props.player.id) with team id 
-  this.setState({
-   //   player_name:'',
-     team_name:'',
-     start_date:'',
-     expiration_date:'',
-     amount:'',
-     salary:'',
-     bonus:'',
-   //   player_id:'',
-     team_id:''
-     
+      handleSubmit = (event) => {
+         event.preventDefault()
+         console.log(this.state)
+         //Check if the team name has a value
+         if(this.state.team_id != ""){
+            this.state.info = ""
+            this.props.addContract(this.state, this.props.player.id)
+         }else{
+            this.state.info = "Warning! Fields Can't be empty"
+         }
+         //Validate to ensure the fields are not empty
+      
+//    return  <li key={newContract.id}><br></br>Team:{newContract.team.name}<br></br></li>
+//   return this.props.addContract(this.state, this.props.player.id)
+   // return <form onSubmit={this.handleChange}></form>
+// }
 
+         this.setState({
+            //   player_name:'',
+             team_name:'',
+            //   player_id:'',
+            start_date:'',
+            expiration_date:'',
+            amount:'',
+            salary:'',
+            bonus:'',
+            team_id:'',            
+         })
 
- })
-
-
-}
+      }
 
 
 
@@ -82,6 +89,7 @@ return (
    <br></br>
    <label>Bonus:</label>
    <input text="text" name="bonus" value={this.state.bonus} onChange={this.handleChange}/>
+   <p>{this.state.info} </p>
    <br></br>
    <input type="submit"/>
 
@@ -90,7 +98,7 @@ return (
  </div>
 
 //mapstateprops for teams
-)
+ )
 
 }
 
@@ -104,4 +112,4 @@ const mapStateToProps = state => {
        
    }
 }
-export default connect(mapStateToProps, {addContract})(ContractInput) 
+export default connect(mapStateToProps, {addContract}, )(ContractInput) 
