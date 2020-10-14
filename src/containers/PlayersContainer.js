@@ -16,17 +16,18 @@ class PlayerContainer extends React.Component{
   this.props.fetchTeams()
 
     }
-
-    
-
-    render () {
   
+    
+    
+    render () {
+      
+      
       return (
       <div> 
       <Switch>
-       <Route path='/players/new' component={PlayerInput} />
+       <Route path='/players/new' component={PlayerInput}  />
        <Route path='/players/:id' render={(routerProps) => < Player {...routerProps} players={this.props.players}/> }/>
-       <Route path='/players' render={(routerProps) => < Players {...routerProps} players={this.props.players}/> } />
+       <Route path='/players' render={(routerProps) => < Players {...routerProps} players={this.props.players} /> } />
        {/* <Teams teams={this.props.teams}/> */}
        </Switch>
       {/* <SearchBar/> */}

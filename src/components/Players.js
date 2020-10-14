@@ -6,13 +6,13 @@ import '../index.css'
 
 
 const Players = (props) => {
-
+ let classes = ['red', 'bold'].join(' ');
   return (
     
    <div> 
      {props.players.map(player => 
-     <li key={player.id}> 
-     <Link to={`/players/${player.id}`}>{player.name}</Link>
+     <li key={player.id} className={classes}> 
+     <Link to={`/players/${player.id}`}>{player.name} </Link>
      </li>)}
 
 

@@ -16,10 +16,10 @@ let player = props.players.filter(player => player.id == parseInt(id))[0]
 
 return (
     
-    <div>
-    <h4 style={{color:'black',backgroundColor: "paleturquoise"}}>
-   HighLights:{player ? <ReactPlayer url={player.youtube_url} height='25%' width='25%'/>: null}<br></br>
-   Name:{player ? player.name : null} <br></br>
+    <div className="App">
+    <h4  style={{color:'black',backgroundColor: "LightGoldenRodYellow"}} >
+   HighLights:{player ? <ReactPlayer url={player.youtube_url} height='50%' width='50%'/>: null}<br></br>
+   Name:{player ? player.name : null}  <br></br>
    Height:{player ? player.height : null}<br></br>
    Weight:{player ? player.weight : null} <br></br>
    Position:{player ? player.position : null}<br></br>
@@ -37,6 +37,7 @@ return (
    end  date:  {player ? player.contracts[0].expiration_date:null}<br></br>
    Team Name: {player ? player.contracts[0].team_name:null}<br></br>  
    Bonus:{player ? player.bonus : null} <br></br> */} 
+   
  <br></br>
 
  <ContractsContainer player={player}/>

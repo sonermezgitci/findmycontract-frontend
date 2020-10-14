@@ -6,10 +6,15 @@ import Contract from '../components/Contract'
 class ContractsContainer extends React.Component{
 
   render () {
+    let styles = {
+      container: {
+        backgroundColor: "LightCoral"
+      }
+    }
    return (
      
-   <div>
-      <Contracts contracts={this.props.player && this.props.player.contracts}/><br></br>
+   <div style={styles.container} >
+      <Contracts contracts={this.props.player && this.props.player.contracts} /><br></br>
       {/* <Contract  contract ={this.props.player&& this.props.player.contract}/> */}
     </div>
    )

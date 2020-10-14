@@ -56,14 +56,14 @@ class ContractInput extends React.Component {
 render () {
    const style = {
       backgroundColor: 'red',
-      color:'white',
+      color:'black',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
       cursor: 'pointer'
-    };
-return (
- <div className="App">
+   };
+   return (
+      <div className="App">
 
     <form onSubmit={this.handleSubmit}>
    <label>  Offer New Contract </label><br></br>
@@ -102,17 +102,17 @@ return (
 //mapstateprops for teams
 )
 
-style.backgroundColor = 'red'
 }
+
 
 }
 
 
 const mapStateToProps = state => {
    return{
-    
-       teams: state.teams
-       
+      
+      teams: state.teams
+      
    }
 }
 export default connect(mapStateToProps, {addContract}, )(ContractInput) 
