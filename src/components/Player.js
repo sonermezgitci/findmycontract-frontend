@@ -6,22 +6,19 @@ import {connect} from 'react-redux'
 import Contracts from './Contracts'
 import ContractInput from './ContractInput'
 import Contract from './Contract'
+import ReactPlayer from "react-player"
 
 const Player = (props) => {
 const {id} =useParams()
 
 let player = props.players.filter(player => player.id == parseInt(id))[0]
-// let contract = props.player.contracts.filter (contract => contract.id = parseInt(id)[0])
-// let contract = props.contracts.filter(contract => contract.id == parseInt(id)[0])
-// let contract = props.contracts[props.match.params.id - 1]
-
-// let player = props.players[props.match.params.id - 1]
 
 
 return (
+    
     <div>
-    <h4>
-    {/* {player ? null : <Redirect to='/players'/>} */}
+    <h4 style={{color:'black',backgroundColor: "paleturquoise"}}>
+   HighLights:{player ? <ReactPlayer url={player.youtube_url} height='25%' width='25%'/>: null}<br></br>
    Name:{player ? player.name : null} <br></br>
    Height:{player ? player.height : null}<br></br>
    Weight:{player ? player.weight : null} <br></br>
@@ -33,7 +30,6 @@ return (
    Age:{player ? player.age : null} <br></br>
    Nationality:{player ? player.nationality : null}<br></br>
    Image:{player ? player.image_url : null}<br></br>
-   HighLights:{player ? player.youtube_url : null}<br></br>
    likes:{player ? player.likes : null}<br></br>
    Bio:{player ? player.bio : null}<br></br>
    {/* contract: $ {player ? player.contracts.salary:null}<br></br> */}
@@ -49,14 +45,16 @@ return (
  <ContractInput player={player}/>
  
  </h4>
+ 
  </div>
+ 
 )
 
 
 }
 
 const mapStateToProps = (state) => {
-    // console.log(state.newContract)
+   
 return {
 newContract: state.newContract,
 delete: state.newContracts,

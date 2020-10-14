@@ -19,8 +19,8 @@ export default function playerReducer(state = {players: [], teams:[]}, action ) 
          case 'FETCH_TEAMS':
            return {...state, teams: action.payload}
 
-        //  case'ADD_CONTRACTS':
-        //  return {...state, contract: action.payload.contract}
+        //  case'SEARCH_PLAYERS':
+        //  return {...state, players: action.payload}
 
       default:                                                           
         return state                                                   

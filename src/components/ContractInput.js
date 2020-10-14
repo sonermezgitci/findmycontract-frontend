@@ -22,24 +22,20 @@ class ContractInput extends React.Component {
             [event.target.name]: event.target.value
       })
 
-
+      
       }
       handleSubmit = (event) => {
          event.preventDefault()
-         console.log(this.state)
-         //Check if the team name has a value
+      
          if(this.state.team_id != ""){
             this.state.info = ""
             this.props.addContract(this.state, this.props.player.id)
          }else{
             this.state.info = "Warning! Fields Can't be empty"
          }
-         //Validate to ensure the fields are not empty
+       
       
-//    return  <li key={newContract.id}><br></br>Team:{newContract.team.name}<br></br></li>
-//   return this.props.addContract(this.state, this.props.player.id)
-   // return <form onSubmit={this.handleChange}></form>
-// }
+
 
          this.setState({
             //   player_name:'',
@@ -58,9 +54,16 @@ class ContractInput extends React.Component {
 
 
 render () {
-
+   const style = {
+      backgroundColor: 'red',
+      color:'white',
+      font: 'inherit',
+      border: '1px solid blue',
+      padding: '8px',
+      cursor: 'pointer'
+    };
 return (
- <div>
+ <div className="App">
 
     <form onSubmit={this.handleSubmit}>
    <label>  Offer New Contract </label><br></br>
@@ -91,15 +94,15 @@ return (
    <input text="text" name="bonus" value={this.state.bonus} onChange={this.handleChange}/>
    <p>{this.state.info} </p>
    <br></br>
-   <input type="submit"/>
-
+   <input type="submit" style={style}/>
+   
     </form>
 
  </div>
-
 //mapstateprops for teams
- )
+)
 
+style.backgroundColor = 'red'
 }
 
 }
@@ -108,7 +111,7 @@ return (
 const mapStateToProps = state => {
    return{
     
-       teams:state.teams
+       teams: state.teams
        
    }
 }

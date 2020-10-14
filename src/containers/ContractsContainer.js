@@ -7,6 +7,7 @@ class ContractsContainer extends React.Component{
 
   render () {
    return (
+     
    <div>
       <Contracts contracts={this.props.player && this.props.player.contracts}/><br></br>
       {/* <Contract  contract ={this.props.player&& this.props.player.contract}/> */}

@@ -26,7 +26,7 @@ if (props.contracts){
 
 }
 if (props.newContract){
-   return  <li key={props.newContract.id}><br></br>Team:{props.newContract.team.name}<br></br> Contract Start Date:{props.newContract.start_date}<br></br>Contract Expiration Date:{props.newContract.expiration_date}<br></br>Contract Amount:${props.newContract.amount}<br></br> Salary:${props.newContract.salary}<br></br>Bonus:${props.newContract.bonus}<br></br><button onClick={() => handleDelete(props.newContract)}>Delete</button> </li>
+   return  <li  key={props.newContract.id}><br></br>Team:{props.newContract.team.name}<br></br> Contract Start Date:{props.newContract.start_date}<br></br>Contract Expiration Date:{props.newContract.expiration_date}<br></br>Contract Amount:${props.newContract.amount}<br></br> Salary:${props.newContract.salary}<br></br>Bonus:${props.newContract.bonus}<br></br><button onClick={() => handleDelete(props.newContract)}>Delete</button> </li>
 
  }
 }

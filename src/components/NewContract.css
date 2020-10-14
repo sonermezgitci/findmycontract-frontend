@@ -1,0 +1,8 @@
+body{
+background :Lavender;
+transition : all 1s;
+}
+  form{
+    background:LightGreen;
+    padding:20px;
+}

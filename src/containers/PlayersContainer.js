@@ -6,7 +6,7 @@ import {fetchTeams} from '../actions/fetchTeams'
 import PlayerInput from '../components/PlayerInput'
 import Player from '../components/Player'
 import {Route,Switch} from 'react-router-dom'
-
+import SearchBar from '../components/SearchBar'
 
 class PlayerContainer extends React.Component{
   
@@ -29,7 +29,7 @@ class PlayerContainer extends React.Component{
        <Route path='/players' render={(routerProps) => < Players {...routerProps} players={this.props.players}/> } />
        {/* <Teams teams={this.props.teams}/> */}
        </Switch>
-      
+      {/* <SearchBar/> */}
       </div>
 
       )
@@ -40,7 +40,7 @@ class PlayerContainer extends React.Component{
  const mapStateToProps = state => {
      return{
          players: state.players,
-         teams:state.teams
+         teams: state.teams
          
      }
  }

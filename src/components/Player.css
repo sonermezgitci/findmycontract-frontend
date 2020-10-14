@@ -1,0 +1,12 @@
+.Player {
+    width: 60%;
+    margin: 16px auto;
+    border: 1px solid rgb(238, 238, 238);
+    box-shadow: 0 2px 3px rgb(204, 204, 204);
+    padding: 16px;
+    text-align: center
+   
+   
+   
+   
+   }

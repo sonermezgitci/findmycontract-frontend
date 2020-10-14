@@ -1,10 +1,14 @@
 import React from 'react'
 import Player from './Player'
 import {Route, Link} from 'react-router-dom'
+import './NewContract.css'
+import '../index.css'
+
 
 const Players = (props) => {
-// console.log(props.players[0].contracts)
+
   return (
+    
    <div> 
      {props.players.map(player => 
      <li key={player.id}> 
