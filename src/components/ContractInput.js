@@ -1,13 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import { addContract } from '../actions/addContract'
-import Contract from './Contracts'
+
 
 class ContractInput extends React.Component {
      state = {
-         //   player_name:'',
-          team_name:'',
-          player_id:'',
+         team_name:'',
+         player_id:'',
          start_date:'',
          expiration_date:'',
          amount:'',
@@ -27,20 +26,19 @@ class ContractInput extends React.Component {
       handleSubmit = (event) => {
          event.preventDefault()
       
-         if(this.state.team_id != ""){
-            this.state.info = ""
+         if(this.state.team_id !== ""){
+            this.setState.info = ""
             this.props.addContract(this.state, this.props.player.id)
          }else{
-            this.state.info = "Warning! Fields Can't be empty"
+            this.setState.info = "Warning! Fields Can't be empty"
          }
        
       
 
 
          this.setState({
-            //   player_name:'',
-             team_name:'',
-            //   player_id:'',
+            
+            team_name:'',
             start_date:'',
             expiration_date:'',
             amount:'',

@@ -6,7 +6,7 @@ import {fetchTeams} from '../actions/fetchTeams'
 import PlayerInput from '../components/PlayerInput'
 import Player from '../components/Player'
 import {Route,Switch} from 'react-router-dom'
-import SearchBar from '../components/SearchBar'
+// import SearchBar from '../components/SearchBar'
 
 class PlayerContainer extends React.Component{
   
@@ -26,9 +26,8 @@ class PlayerContainer extends React.Component{
       <div> 
       <Switch>
        <Route path='/players/new' component={PlayerInput}  />
-       <Route path='/players/:id' render={(routerProps) => < Player {...routerProps} players={this.props.players}/> }/>
-       <Route path='/players' render={(routerProps) => < Players {...routerProps} players={this.props.players} /> } />
-       {/* <Teams teams={this.props.teams}/> */}
+       <Route path='/players/:id' render={() => < Player  players={this.props.players}/> }/>
+       <Route path='/players' render={() => < Players  players={this.props.players} /> } />
        </Switch>
       {/* <SearchBar/> */}
       </div>

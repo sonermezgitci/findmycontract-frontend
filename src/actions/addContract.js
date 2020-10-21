@@ -1,4 +1,4 @@
-export const addContract = ( contract, playerId,teamId) => {
+export const addContract = ( contract, playerId) => {
 
     return(dispatch) => {
         let newContract = {...contract, player_id:playerId }

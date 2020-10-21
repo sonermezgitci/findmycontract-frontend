@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams} from 'react-router-dom'
-import {Redirect} from 'react-router-dom'
+// import {Redirect} from 'react-router-dom'
 import ContractsContainer from '../containers/ContractsContainer'
 import {connect} from 'react-redux'
 import Contracts from './Contracts'
@@ -9,9 +9,15 @@ import Contract from './Contract'
 import ReactPlayer from "react-player"
 
 const Player = (props) => {
-const {id} =useParams()
+const {id} = useParams()
 
-let player = props.players.filter(player => player.id == parseInt(id))[0]
+// debugger 
+let player = props.players.filter(player => player.id === parseInt(id))[0]
+
+
+
+
+
 
 
 return (

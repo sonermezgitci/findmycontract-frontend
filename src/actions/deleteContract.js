@@ -1,5 +1,5 @@
 export const deleteContract = (contractId) => {
-    console.log(contractId)
+   
     return (dispatch) => {
          return fetch(`http://localhost:3000/contracts/${contractId}`, {
 

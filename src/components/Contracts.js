@@ -7,10 +7,10 @@ import {deleteContract} from '../actions/deleteContract'
 const Contracts = (props) => {
   
 const handleRender = (props) => {
-  // console.log(props.con.salary)
+  
  const handleDelete = (contract) => {
    
-  //  debugger
+
  props.deleteContract(contract.id)
 
 

@@ -26,8 +26,14 @@ class PlayerInput extends React.Component {
     }   
     
  
-
-
+// handleLikes = (event) => {
+//    const target = event.target;
+//    const value = target.type === 'likes' ? target.checked : target.value;
+//    const name = target.name;
+//    this.setState({
+//       [name]: value
+//     });
+//   }
 
 
 
@@ -94,7 +100,7 @@ class PlayerInput extends React.Component {
         <label> Creating YouTube: </label>
         <input text='text' placeholder='youtube_url' value={this.state.youtube_url} name="youtube_url"onChange={this.handleChange}/><br/><br/>
         <label> Creating likes: </label>
-        <input text='text' placeholder='likes' value={this.state.likes} name="likes"onChange={this.handleChange}/><br/><br/>
+        <input text='text' placeholder='likes' value={this.state.likes} name="likes"onChange={this.handleChange} onClick={this.handleChange}/><br/><br/>
         
         
         
