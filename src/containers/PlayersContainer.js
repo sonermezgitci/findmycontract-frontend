@@ -17,6 +17,8 @@ class PlayerContainer extends React.Component {
   render() {
     return (
       <div>
+        Search Players <SearchBar />
+        <br></br>
         <Switch>
           <Route path="/players/new" component={PlayerInput} />
           <Route
@@ -28,7 +30,6 @@ class PlayerContainer extends React.Component {
             render={() => <Players players={this.props.players} />}
           />
         </Switch>
-        {/* <SearchBar /> */}
       </div>
     );
   }

@@ -12,7 +12,7 @@ const Player = props => {
   const { id } = useParams();
 
   // debugger
-  console.log(props.players);
+  console.log("Player.js", props.players);
   let player = props.players.filter(player => player.id === parseInt(id))[0];
   // let player = props.players;
 
