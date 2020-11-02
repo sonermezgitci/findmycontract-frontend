@@ -5,6 +5,7 @@ import { addSearchBar } from "../actions/addSearchBar";
 
 class SearchBar extends React.Component {
   state = {
+    name: "",
     search: ""
   };
 
@@ -14,16 +15,28 @@ class SearchBar extends React.Component {
     });
   };
 
+  // dymamicSearch = () => {
+
+  // };
+
   handleSubmit = event => {
     event.preventDefault();
 
+    const player = this.props.players.find(player => {
+      return player.name
+        .toLowerCase()
+        .includes(this.state.search.toLowerCase());
+    });
     this.setState({
-      search: ""
+      name: player.name
     });
   };
 
   render() {
+    console.log(this.props.players);
+    console.log(this);
     const search = this.state;
+
     this.props.players.forEach(player => {
       if (player.name.indexOf(search) === -1) {
         return;
@@ -33,15 +46,15 @@ class SearchBar extends React.Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <input
-            label="Search Player"
-            icon="search"
-            type="text"
-            value={this.state.search}
+            type="type"
+            value={this.search}
             onChange={this.handleChange}
+            placeholder="Search Player !"
           />
-          {this.filteredPlayers}
+
           <input type="Submit" />
         </form>
+        {this.state.name}
       </div>
     );
   }

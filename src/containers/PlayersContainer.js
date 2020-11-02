@@ -17,7 +17,7 @@ class PlayerContainer extends React.Component {
   render() {
     return (
       <div>
-        Search Players <SearchBar />
+        Search Players <SearchBar names={this.dynamicSearch} />
         <br></br>
         <Switch>
           <Route path="/players/new" component={PlayerInput} />
