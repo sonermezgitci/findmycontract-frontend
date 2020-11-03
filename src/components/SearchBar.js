@@ -1,12 +1,15 @@
 import React from "react";
-import Player from "../components/Player";
+import Players from "../components/Players";
 import { connect } from "react-redux";
 import { addSearchBar } from "../actions/addSearchBar";
+import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 class SearchBar extends React.Component {
   state = {
     name: "",
-    search: ""
+    search: "",
+    arePlayersShown: true
   };
 
   handleChange = event => {
@@ -14,10 +17,6 @@ class SearchBar extends React.Component {
       search: event.target.value
     });
   };
-
-  // dymamicSearch = () => {
-
-  // };
 
   handleSubmit = event => {
     event.preventDefault();
@@ -28,13 +27,13 @@ class SearchBar extends React.Component {
         .includes(this.state.search.toLowerCase());
     });
     this.setState({
-      name: player.name
+      name: player.name,
+      arePlayersShown: false
     });
   };
 
   render() {
-    console.log(this.props.players);
-    console.log(this);
+    console.log("search bar", this);
     const search = this.state;
 
     this.props.players.forEach(player => {
@@ -54,7 +53,11 @@ class SearchBar extends React.Component {
 
           <input type="Submit" />
         </form>
-        {this.state.name}
+        {this.state.arePlayersShown ? (
+          <Players players={this.props.players} />
+        ) : (
+          this.state.name
+        )}
       </div>
     );
   }
@@ -66,4 +69,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { addSearchBar })(SearchBar);
+export default withRouter(
+  connect(mapStateToProps, { addSearchBar })(SearchBar)
+);

@@ -22,6 +22,7 @@ class Players extends React.Component {
   };
 
   render() {
+    console.log("players", this);
     let classes = ["red", "bold"].join(" ");
 
     return (

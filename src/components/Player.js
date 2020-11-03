@@ -16,6 +16,7 @@ const Player = props => {
   let player = props.players.filter(player => player.id === parseInt(id))[0];
   // let player = props.players;
 
+  console.log("player page", this);
   return (
     <div className="App">
       <h4 style={{ color: "black", backgroundColor: "LightGoldenRodYellow" }}>
