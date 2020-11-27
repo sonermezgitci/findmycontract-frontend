@@ -1,7 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const PlayerResults = ({ playerResults }) => {
+  console.log(playerResults);
   return (
     <ul>
       {playerResults.length > 0
@@ -10,7 +11,7 @@ const PlayerResults = ({ playerResults }) => {
               <Link to={`/players/${id}`}>{name}</Link>
             </li>
           ))
-        : 'Could not find player(s)'}
+        : "Could not find player(s)"}
     </ul>
   );
 };

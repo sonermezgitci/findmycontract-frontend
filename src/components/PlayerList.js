@@ -7,6 +7,7 @@ const PlayerList = ({ players }) => {
       {players.map((player) => (
         <PlayerItem key={player.id} player={player} />
       ))}
+
     </ul>
   );
 };

@@ -1,26 +1,24 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React from "react";
+import { useParams } from "react-router-dom";
 // import {Redirect} from 'react-router-dom'
-import ContractsContainer from '../containers/ContractsContainer';
-import { connect } from 'react-redux';
-import Contracts from './Contracts';
-import ContractInput from './ContractInput';
-import Contract from './Contract';
-import ReactPlayer from 'react-player';
+import ContractsContainer from "../containers/ContractsContainer";
+import { connect } from "react-redux";
+import Contracts from "./Contracts";
+import ContractInput from "./ContractInput";
+import Contract from "./Contract";
+import ReactPlayer from "react-player";
 
-const PlayerDetails = (props) => {
+const PlayerDetails = props => {
   const { id } = useParams();
 
-  // debugger
-  let player = props.players.filter((player) => player.id === parseInt(id))[0];
-  // let player = props.players;
+  let player = props.players.filter(player => player.id === parseInt(id))[0];
 
   return (
-    <div className='App'>
-      <h4 style={{ color: 'black', backgroundColor: 'LightGoldenRodYellow' }}>
+    <div className="App">
+      <h4 style={{ color: "black", backgroundColor: "LightGoldenRodYellow" }}>
         HighLights:
         {player ? (
-          <ReactPlayer url={player.youtube_url} height='50%' width='50%' />
+          <ReactPlayer url={player.youtube_url} height="50%" width="50%" />
         ) : null}
         <br></br>
         Name:{player ? player.name : null} <br></br>
@@ -45,11 +43,6 @@ const PlayerDetails = (props) => {
         <br></br>
         Bio:{player ? player.bio : null}
         <br></br>
-        {/* contract: $ {player ? player.contracts.salary:null}<br></br> */}
-        {/* start date:  {player ? player.contracts[0].start_date:null}<br></br> 
-   end  date:  {player ? player.contracts[0].expiration_date:null}<br></br>
-   Team Name: {player ? player.contracts[0].team_name:null}<br></br>  
-   Bonus:{player ? player.bonus : null} <br></br> */}
         <br></br>
         <ContractsContainer player={player} />
         {props.newContract ? (
@@ -62,7 +55,7 @@ const PlayerDetails = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     newContract: state.newContract,
     delete: state.newContracts,
