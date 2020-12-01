@@ -14,7 +14,9 @@ import PlayerInput from './components/PlayerInput';
 class Main extends React.Component {
   state = {
     playerResults: [],
-    searchValue: ''
+    searchValue: '',
+    sortedPlayers: [],
+    sortedButtonClick: false
   };
 
   componentDidMount() {
@@ -30,6 +32,7 @@ class Main extends React.Component {
   };
 
   handleSubmit = (event) => {
+
     event.preventDefault();
     const { searchValue } = this.state;
     if (searchValue) {
@@ -40,13 +43,50 @@ class Main extends React.Component {
       this.setState({
         playerResults: filteredPlayers,
         searchValue: ''
+
       });
     }
   };
 
+  sortMethod = () => {
+    // console.log(this.props.players)
+    const players = [...this.props.players]
+
+    const sortedPlayers = players.sort((a, b) => a.name.localeCompare(b.name))
+    this.setState({
+      sortedPlayers: sortedPlayers
+    })
+  }
+
+  handleClick = () => {
+    this.sortMethod()
+    this.setState({
+      sortedButtonClick: !this.state.sortedButtonClick
+    })
+
+  }
+
+
+
   render() {
     const { playerResults, searchValue } = this.state;
-    const { players } = this.props;
+    // const { players } = this.props;
+    let players
+    console.log(this.props.players)
+    if (this.state.sortedButtonClick) {
+
+      players = this.state.sortedPlayers
+    } else {
+      players = this.props.players
+    }
+
+
+
+
+    // this.state.sortedButtonClick ? players = this.state.sortedPlayers
+    //   :
+    //   players = this.props.players
+
     return (
       <>
         Search Players{' '}
@@ -57,7 +97,7 @@ class Main extends React.Component {
         />
         <Switch>
           <Route exact path='/'>
-            <PlayerListContainer players={players} />
+            <PlayerListContainer players={players} handleClick={this.handleClick} />
             <Link to='/players/new'>Create a new player profile!</Link>
           </Route>
           <Route path='/search'>
