@@ -72,20 +72,20 @@ class Main extends React.Component {
     const { playerResults, searchValue } = this.state;
     // const { players } = this.props;
     let players
-    console.log(this.props.players)
-    if (this.state.sortedButtonClick) {
+    // console.log(this.props.players)
+    // if (this.state.sortedButtonClick) {
 
-      players = this.state.sortedPlayers
-    } else {
-      players = this.props.players
-    }
-
-
-
-
-    // this.state.sortedButtonClick ? players = this.state.sortedPlayers
-    //   :
+    //   players = this.state.sortedPlayers
+    // } else {
     //   players = this.props.players
+    // }
+
+
+
+
+    this.state.sortedButtonClick ? players = this.state.sortedPlayers
+      :
+      players = this.props.players
 
     return (
       <>
