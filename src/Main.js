@@ -15,8 +15,9 @@ class Main extends React.Component {
   state = {
     playerResults: [],
     searchValue: '',
-    sortedPlayers: [],
-    sortedButtonClick: false
+    sortPlayers: []
+
+
   };
 
   componentDidMount() {
@@ -48,44 +49,34 @@ class Main extends React.Component {
     }
   };
 
+
   sortMethod = () => {
-    // console.log(this.props.players)
     const players = [...this.props.players]
-
-    const sortedPlayers = players.sort((a, b) => a.name.localeCompare(b.name))
+    const sortPlayers = players.sort((a, b) => a.name.localeCompare(b.name))
     this.setState({
-      sortedPlayers: sortedPlayers
+      sortPlayers,
+
     })
   }
 
-  handleClick = () => {
-    this.sortMethod()
+
+
+  asortedMethod = () => {
+    const players = [...this.props.players]
+    const filteredPlayers2 = players.filter((player =>
+      player.name.toLowerCase()[0] === "a"))
+    console.log(filteredPlayers2)
     this.setState({
-      sortedButtonClick: !this.state.sortedButtonClick
+      sortPlayers: filteredPlayers2,
     })
 
   }
-
-
 
   render() {
+
     const { playerResults, searchValue } = this.state;
-    // const { players } = this.props;
-    let players
-    // console.log(this.props.players)
-    // if (this.state.sortedButtonClick) {
-
-    //   players = this.state.sortedPlayers
-    // } else {
-    //   players = this.props.players
-    // }
-
-
-
-
-    this.state.sortedButtonClick ? players = this.state.sortedPlayers
-      :
-      players = this.props.players
+    // let players = this.props.players
+    let players = this.state.sortPlayers.length ? this.state.sortPlayers : this.props.players
 
     return (
       <>
@@ -97,7 +88,7 @@ class Main extends React.Component {
         />
         <Switch>
           <Route exact path='/'>
-            <PlayerListContainer players={players} handleClick={this.handleClick} />
+            <PlayerListContainer players={players} sortMethod={this.sortMethod} asortedMethod={this.asortedMethod} />
             <Link to='/players/new'>Create a new player profile!</Link>
           </Route>
           <Route path='/search'>
