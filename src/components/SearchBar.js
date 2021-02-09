@@ -1,8 +1,12 @@
 import React from 'react';
+import SearchIcon from '@material-ui/icons/Search';
+
+
 
 const SearchBar = ({ handleChange, handleSubmit, searchValue }) => {
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="header__search" onSubmit={handleSubmit}>
+      <SearchIcon />
       <input
         type='type'
         value={searchValue}

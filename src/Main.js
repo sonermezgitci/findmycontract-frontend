@@ -10,6 +10,7 @@ import PlayerDetailsContainer from './containers/PlayerDetailsContainer';
 import SearchBar from './components/SearchBar';
 import PlayerResults from './components/PlayerResults';
 import PlayerInput from './components/PlayerInput';
+import "./App.css";
 
 class Main extends React.Component {
   state = {
@@ -80,7 +81,7 @@ class Main extends React.Component {
 
     return (
       <>
-        Search Players{' '}
+        {/* Search Players{' '} */}
         <SearchBar
           searchValue={searchValue}
           handleChange={this.handleChange}
