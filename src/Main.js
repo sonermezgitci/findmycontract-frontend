@@ -54,7 +54,7 @@ class Main extends React.Component {
     const players = [...this.props.players]
     const sortPlayers = players.sort((a, b) => a.name.localeCompare(b.name))
     this.setState({
-      sortPlayers,
+      sortPlayers
 
     })
   }
@@ -75,7 +75,7 @@ class Main extends React.Component {
   render() {
 
     const { playerResults, searchValue } = this.state;
-    // let players = this.props.players
+
     let players = this.state.sortPlayers.length ? this.state.sortPlayers : this.props.players
 
     return (
