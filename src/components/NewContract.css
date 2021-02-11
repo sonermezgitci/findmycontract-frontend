@@ -3,6 +3,6 @@ background :Lavender;
 transition : all 1s;
 }
   form{
-    background:SpringGreen;
+    background:rgb(0, 136, 255);
     padding:20px;
 }

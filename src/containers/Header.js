@@ -1,6 +1,6 @@
 import React from 'react'
 import "./Header.css";
-
+import HeaderOption from "./containers/HeaderOption";
 
 
 function Header() {
@@ -12,6 +12,9 @@ function Header() {
                 <h1> FIND MY CONTRACT </h1>
             </div>
             <div className="header_right">
+                <HeaderOption title="home" />
+                <HeaderOption email="home" />
+                <HeaderOption subscribe="subscribe" />
 
             </div>
         </div>

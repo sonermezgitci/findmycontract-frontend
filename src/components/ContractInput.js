@@ -114,7 +114,7 @@ class ContractInput extends React.Component {
           <input type='submit' style={style} />
         </form>
       </div>
-      //mapstateprops for teams
+
     );
   }
 }
