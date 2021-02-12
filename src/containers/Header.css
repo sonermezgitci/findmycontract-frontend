@@ -19,11 +19,11 @@
     display :flex;
     object-fit: contain;
     height: 150px;
-    margin-right:1000px;
+    margin-right:500px;
 }
 .header__left > h1 {
  display :flex;
- margin-left: 4000px;
+ margin-left: 0.10px;
  
 }
 .header__right{
