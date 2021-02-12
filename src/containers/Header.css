@@ -12,17 +12,22 @@
   
   }
 
-  .header_left {
-      display: flex;
+  .header__left {
+   display: flex;
   }
 .header__left > img {
     display :flex;
     object-fit: contain;
     height: 150px;
-    margin-right:1200px;
+    margin-right:1000px;
 }
 .header__left > h1 {
  display :flex;
- margin-left: 100px;
+ margin-left: 4000px;
  
 }
+.header__right{
+    /* display :flex; */
+    margin-left: 0
+    
+   }
