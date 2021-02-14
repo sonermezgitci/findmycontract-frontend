@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { deleteContract } from '../actions/deleteContract';
+import PostAddIcon from '@material-ui/icons/PostAdd';
 
 const Contracts = (props) => {
   const handleRender = (props) => {
@@ -19,6 +20,7 @@ const Contracts = (props) => {
           <br></br>Bonus:${contract.bonus}
           <br></br>
         </li>
+
       ));
     }
     if (props.newContract) {
@@ -35,6 +37,7 @@ const Contracts = (props) => {
             Delete
           </button>
         </li>
+
       );
     }
   };

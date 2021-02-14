@@ -3,6 +3,7 @@ background :Lavender;
 transition : all 1s;
 }
   form{
+    display:flex;
     background:rgb(0, 136, 255);
     padding:20px;
 }
