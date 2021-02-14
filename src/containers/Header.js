@@ -6,29 +6,47 @@ import HomeIcon from "@material-ui/icons/Home";
 import SportsBasketballIcon from '@material-ui/icons/SportsBasketball';
 import InfoIcon from '@material-ui/icons/Info';
 import PostAddIcon from '@material-ui/icons/PostAdd';
-
+import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
+import InstagramIcon from '@material-ui/icons/Instagram';
+import ChatIcon from "@material-ui/icons/Chat";
+import NotificationsIcon from "@material-ui/icons/Notifications";
+import EqualizerIcon from '@material-ui/icons/Equalizer';
 function Header() {
     return (
 
         <div className="header">
-            {/* <div><h1> FIND MY CONTRACT </h1></div> */}
+
 
             <div className="header__left" >
+
                 <img
-                    src="https://theundefeated.com/wp-content/uploads/2017/06/nbalogo.jpg?w=1024"
+                    src="https://www.kusi.com/content/uploads/2017/12/SECTION-HEADER-SPORTS.png"
                     alt=""
+
                 />
-                <div className="header__search">
+
+
+                {/* <div className="header__search">
                     <SearchIcon />
                     <input type="text" />
-                </div>
+                </div> */}
 
             </div>
+
             <div className="header__right">
                 <HeaderOption Icon={HomeIcon} title="Home" />
-                <HeaderOption Icon={SportsBasketballIcon} title="My Players" />
-                <HeaderOption Icon={InfoIcon} title="about" />
-                <HeaderOption Icon={PostAddIcon} title="Contracts" />
+                <HeaderOption Icon={SportsBasketballIcon} title="Sports" />
+                <HeaderOption Icon={SupervisorAccountIcon} title="MyTeams" />
+                <HeaderOption Icon={PostAddIcon} title="MyContracts" />
+                <HeaderOption Icon={ChatIcon} title="Messaging" />
+                <HeaderOption Icon={NotificationsIcon} title="Notifications" />
+                <HeaderOption Icon={EqualizerIcon} title="Stats" />
+                <HeaderOption Icon={InstagramIcon} title="Follow" />
+                <HeaderOption Icon={InfoIcon} title="About" />
+                {/* <div><h3> FIND ME CONTRACT </h3></div> */}
+                <HeaderOption avatar="https://media.gettyimages.com/photos/las-norias-spain-turkish-soner-mezgitci-hits-the-ball-as-hicham-from-picture-id53143521"
+                    title="me" />
+
 
             </div>
         </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { deleteContract } from '../actions/deleteContract';
-import PostAddIcon from '@material-ui/icons/PostAdd';
+
 
 const Contracts = (props) => {
   const handleRender = (props) => {
