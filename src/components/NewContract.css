@@ -1,9 +1,0 @@
-body{
-background :Lavender;
-transition : all 1s;
-}
-  form{
-    display:flex;
-    background:rgb(0, 255, 157);
-    padding:20px;
-}

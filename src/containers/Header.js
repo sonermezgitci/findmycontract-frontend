@@ -20,7 +20,7 @@ function Header() {
             <div className="header__left" >
 
                 <img
-                    src="https://www.kusi.com/content/uploads/2017/12/SECTION-HEADER-SPORTS.png"
+                    src="/images/sport.png"
                     alt=""
 
                 />
@@ -36,7 +36,7 @@ function Header() {
             <div className="header__right">
                 <HeaderOption Icon={HomeIcon} title="Home" />
                 <HeaderOption Icon={SportsBasketballIcon} title="Sports" />
-                <HeaderOption Icon={SupervisorAccountIcon} title="MyTeams" />
+                <HeaderOption Icon={SupervisorAccountIcon} title="MyPlayers" />
                 <HeaderOption Icon={PostAddIcon} title="MyContracts" />
                 <HeaderOption Icon={ChatIcon} title="Messaging" />
                 <HeaderOption Icon={NotificationsIcon} title="Notifications" />
