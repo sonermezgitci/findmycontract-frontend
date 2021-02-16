@@ -1,14 +1,7 @@
-.App {
-  text-align: center;
-}
 
-.yellow{
-  color: yellow;
-}
+.app__body{
+  display: flex;
 
-
-.bold {
-  font-weight: bold;
 }
 
 /* .App-logo {

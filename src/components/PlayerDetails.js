@@ -18,7 +18,7 @@ const PlayerDetails = props => {
       <h4 style={{ color: "black", backgroundColor: "LightGoldenRodYellow" }}>
         HighLights:
         {player ? (
-          <ReactPlayer url={player.youtube_url} height="50%" width="50%" />
+          <ReactPlayer url={player.youtube_url} height="20%" width="20%" />
         ) : null}
         <br></br>
         Name:{player ? player.name : null} <br></br>
