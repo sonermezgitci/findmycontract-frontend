@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from "./containers/Header";
-import Main from './Main';
 import Sidebar from "./Sidebar"
+import Main from './Main';
 
 class App extends React.Component {
   render() {
@@ -13,7 +13,7 @@ class App extends React.Component {
         <Sidebar />
         {/* <Feed/> */}
         {/* <widgets/> */}
-        <Main />
+        {/* <Main /> */}
 
 
 
