@@ -13,7 +13,7 @@ class App extends React.Component {
         <Sidebar />
         {/* <Feed/> */}
         {/* <widgets/> */}
-        {/* <Main /> */}
+        <Main />
 
 
 
