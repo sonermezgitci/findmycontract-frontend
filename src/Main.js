@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, withRouter, Link, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import "./Main.css"
 import { fetchPlayers } from './actions/fetchPlayers';
 import { fetchTeams } from './actions/fetchTeams';
 
